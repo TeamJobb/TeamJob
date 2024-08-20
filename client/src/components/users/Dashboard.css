@@ -1,0 +1,92 @@
+
+
+/* Ensure the container takes the full height available */
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the container takes full height */
+}
+
+/* Row takes available space */
+.row.flex-grow-1 {
+  flex: 1; /* Allows Row to take available space */
+}
+
+/* Aligne les cartes */
+.row {
+  display: flex;
+  flex-wrap: wrap; /* Permet aux cartes de passer à la ligne si nécessaire */
+}
+
+
+/* Space between cards */
+.card-stats {
+  margin-bottom: 10rem; /* Adds space///////////// below each card */
+}
+
+/* Align cards at the bottom of the container */
+.bottom-cards {
+  margin-top: 20rem; /* Aligns cards at the bottom */
+}
+
+/* Reduce the card padding and margin */
+.card {
+  padding: 1rem; /* Adjust padding inside the card */
+  margin-bottom: 10rem; /* Adjust space ////////////////////////between cards */
+}
+
+/* Gradient background for cards */
+.gradient-card {
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  color: #ffffff8e;
+}
+
+/* Icon size */
+.icon-big {
+  font-size: 1.5rem; /* Reduced icon size */
+}
+
+/* Card category styling */
+.card-category {
+  font-size: 0.75rem; /* Smaller font size for card category */
+  color: #f4f5f7;
+  margin-bottom: 0.5rem; 
+}
+
+/* Numbers alignment */
+.numbers {
+  text-align: left;
+  font-size: 20rem; /* Ajustez la taille selon vos besoins */
+}
+
+
+/* Chart height adjustments */
+.ct-chart, .ct-perfect-fourth {
+  height: 200px; /* Reduced chart height */
+}
+
+/* Card header padding */
+.card-header {
+  padding: 0.75rem; /* Reduced padding in card header */
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* Stats styling */
+.stats {
+  font-size: 1rem; /* Smaller font size for stats */
+  color: #6c757d;
+}
+
+/* Legend styling */
+.legend {
+  margin-bottom: 0.5rem;
+}
+
+.legend i {
+  margin-right: 0.5rem; /* Reduced margin for legend icons */
+}
+
+/* Chart slice stroke width */
+.ct-chart .ct-series.ct-series-a .ct-slice-donut {
+  stroke-width: 1px; /* Reduced stroke width for chart slices */
+}

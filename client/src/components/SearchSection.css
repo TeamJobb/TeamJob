@@ -1,0 +1,34 @@
+.search-section {
+    position: relative;
+    background-image: url('../assets/home.jpg'); /* Remplacez par le chemin de votre image */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    padding: 40px;
+    border-radius: 8px;
+  }
+  
+  .search-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  
+  .search-section p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+  }
+  
+  .search-section .form-control {
+    margin-bottom: 20px;
+  }
+  
+  .search-section .btn-primary {
+    width: 100%;
+  }
+  

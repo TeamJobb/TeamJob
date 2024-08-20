@@ -1,0 +1,62 @@
+/* Navbar.css */
+.topPage {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.navbar-brand {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: #007bff;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.navbar {
+  background: linear-gradient(90deg, #007bff, #00aaff);
+}
+
+.nav-link, .nav-dropdown-item {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  color: #fff !important;
+  padding: 8px 15px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-dropdown-item:hover {
+  color: #ffeb3b !important;
+  background-color: transparent;
+}
+
+.navbar-nav .nav-link i {
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-toggler-icon {
+  background-color: #fff;
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+.nav-dropdown-menu {
+  background-color: #007bff;
+}
+
+.nav-dropdown-item {
+  color: #fff;
+  padding: 8px 20px;
+}
+
+.nav-dropdown-item:hover {
+  background-color: #00aaff;
+  color: #ffeb3b;
+}
