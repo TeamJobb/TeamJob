@@ -20,15 +20,15 @@ const Job = sequelize.define('Job', {
   },
   employmentType: {
     type: DataTypes.STRING,
-    allowNull: false,
+    
   },
   jobLocation: {
     type: DataTypes.STRING,
-    allowNull: false,
+   
   },
   jobIndustry: {
     type: DataTypes.STRING,
-    allowNull: false,
+   
   },
   requirements: {
     type: DataTypes.TEXT,
