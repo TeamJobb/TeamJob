@@ -1,10 +1,9 @@
-
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from '../UserContext.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import './LoginPage.css';
 
 const LoginPage = ({ loggedIn, setLoggedIn }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -50,39 +49,57 @@ const LoginPage = ({ loggedIn, setLoggedIn }) => {
     };
 
     return (
+        
         <div className="container">
-            <h2 className="my-4">Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group mb-3">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
+            <h2 className="my-4">Every new job is a <br /> new adventure<br></br>Let's get connected</h2>
+            
+                    <div className="forms">
+                <div className="form-content">
+                    <div className="login-form">
+                        <div className="title">Login</div>
+                        <form onSubmit={handleSubmit}>
+                            <div className="input-boxes">
+                                <div className="input-box">
+                                    <i className="fas fa-envelope"></i>
+                                    <input
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="input-box">
+                                    <i className="fas fa-lock"></i>
+                                    <input
+                                        type="password"
+                                        placeholder="Enter your password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="text"><a href="#">Forgot password?</a></div>
+                                <div className="button input-box">
+                                    <input type="submit" value="Submit" />
+                                </div>
+                                <div className="text sign-up-text">
+                                    Don't have an account? <label htmlFor="flip">Signup now</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div className="form-group mb-3">
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Login</button>
-            </form>
+            </div>
+    
+             
             {message && (
                 <div className={`alert ${messageType === 'success' ? 'alert-success' : 'alert-danger'} mt-3`} role="alert">
                     {message}
                 </div>
+                
             )}
         </div>
     );

@@ -28,7 +28,7 @@ app.use('/api/employers', employerRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/job-applications', jobApplicationRoutes);
 
-const PORT = process.env.PORT || 3021;
+const PORT = process.env.PORT || 3020;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
