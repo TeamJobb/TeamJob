@@ -1,0 +1,18 @@
+
+/* Styling for the caption text */
+.caption h1 {
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Search bar styling */
+
+
+
+
+
+.caption {
+  margin-bottom: 20px; /* Space between caption and search bar */
+}
