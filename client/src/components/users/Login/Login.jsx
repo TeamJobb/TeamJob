@@ -4,6 +4,7 @@ import axios from 'axios';
 import { UserContext } from '../UserContext.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './LoginPage.css';
+import video from '../../../assets/video.mp4'
 
 const LoginPage = ({ loggedIn, setLoggedIn }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -51,8 +52,12 @@ const LoginPage = ({ loggedIn, setLoggedIn }) => {
     return (
         
         <div className="container">
-            <h2 className="my-4">Every new job is a <br /> new adventure<br></br>Let's get connected</h2>
-            
+
+           <br></br><br></br><br></br><br></br><br></br> <br></br><br></br><br></br><h1 className="my-4">Every new job is a  new adventure <br></br>Let's get connected</h1>
+            <div className="login-page">
+            <video src={video} className="login-video" autoPlay loop muted />
+           
+        </div>
                     <div className="forms">
                 <div className="form-content">
                     <div className="login-form">

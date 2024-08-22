@@ -1,26 +1,35 @@
 .forms {
     flex: 1;
-    background: #fcfcff;
+    background: transparent;
     padding: 40px;
     height: 500px;
-    width: 30%;
+    width: 40%;
+    margin-left: 350px;
+    margin-top: 150px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajoute une transition pour l'agrandissement et l'ombre */
+}
 
-  }
+.forms:hover {
+    transform: scale(1.05); /* Agrandit la forme à 105% de sa taille d'origine */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Augmente l'ombre pour plus de profondeur */
+}
+
   
   .form-content .login-form,
   .form-content .signup-form {
-    width: 20%;
+    width: 50%;
     height: 70px;
   }
   .form-content .login-form,
 .form-content .signup-form {
-  width: 70%;
+  width: 100%;
+  color: bisque;
 }
 .forms .form-content .title {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 50px;
-    color: #333;
+    color:antiquewhite;
     margin-bottom: 20px;
     text-align: center;
   }
@@ -48,13 +57,13 @@
   }
   .form-content .input-box input:focus,
 .form-content .input-box input:valid {
-  border-color: #7d2ae8;
+  border-color: #e8b52a;
 }
 
 .form-content .input-box i {
   position: absolute;
-  left: 0;
-  color: #7d2ae8;
+  left: 5px;
+  color:#e8b52a;
   font-size: 17px;
 }
 
@@ -62,24 +71,25 @@
   width: 100%;
   padding: 15px;
   border-radius: 6px;
-  background: #7d2ae8;
-  color: #fff;
+  background: #594306;
+  color:white;
   cursor: pointer;
   transition: all 0.4s ease;
 }
 
 .forms .form-content .button input:hover {
-  background: #5b13b9;
+  background: #275640;
 }
 .forms .form-content .text {
     text-align: center;
-    font-size: 14px;
+    font-size: 20px;
     margin-top: 10px;
-    color: #333;
+    color: rgb(25, 25, 117);
   }
   .forms .form-content .text a {
-    color: #7d2ae8;
+    color:  rgb(25, 25, 117);
     text-decoration: none;
+    font-size: 20px;
   }
   
   .forms .form-content .text.sign-up-text {
@@ -98,3 +108,24 @@
       width: 100%;
     }
   }
+  .login-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1400px;
+    object-fit: cover; /* Pour s'assurer que la vidéo couvre tout l'arrière-plan */
+    z-index: -1; /* Pour que la vidéo soit derrière le formulaire */
+  }
+  .h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    
+}
+.my-4{
+    color: rgb(238, 230, 219);
+    margin-top: 100px;
+    text-align: center;
+    font-size: 45px;
+}

@@ -1,62 +1,110 @@
-/* Navbar.css */
-.topPage {
-  background-color: #f8f9fa;
-  padding: 10px 0;
-  text-align: center;
+.custom-navbar {
+  background-color: #f8f9fa; /* Light background color */
+  border-bottom: 1px solid #dee2e6; /* Subtle border at the bottom */
+  padding: 0.5rem 1rem; /* Adjust padding to fit the design */
 }
 
-.navbar-brand {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-  color: #007bff;
-  font-size: 1.5rem;
-  text-transform: uppercase;
+.navbar-logo {
+  height: 40px; /* Adjust the height of the logo */
+  object-fit: contain; /* Ensure logo is properly contained */
 }
 
-.navbar {
-  background: linear-gradient(90deg, #007bff, #00aaff);
+.navbar-title {.custom-navbar {
+  background-color: #f8f9fa; /* Light background color */
+  border-bottom: 1px solid #dee2e6; /* Subtle border at the bottom */
+  padding: 0.5rem 1rem; /* Adjust padding to fit the design */
 }
 
-.nav-link, .nav-dropdown-item {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.1rem;
-  color: #fff !important;
-  padding: 8px 15px;
-  transition: color 0.3s ease;
+.logo-container {
+  display: flex;
+  align-items: center;
 }
 
-.nav-link:hover, .nav-dropdown-item:hover {
-  color: #ffeb3b !important;
-  background-color: transparent;
+.navbar-logo {
+  height: 40px; /* Adjust the height of the logo */
+  object-fit: contain; /* Ensure logo is properly contained */
 }
 
-.navbar-nav .nav-link i {
-  margin-right: 8px;
-  font-size: 1.2rem;
+.navbar-title {
+  font-size: 1.5rem; /* Size of the JobSearch text */
+  font-weight: 700; /* Bold text */
+  color: #1e3c72; /* Primary color */
+  text-transform: uppercase; /* Uppercase text for emphasis */
 }
 
-.navbar-toggler {
-  border-color: rgba(255, 255, 255, 0.1);
+.navbar-nav .nav-link {
+  color: #495057; /* Dark color for nav links */
+  font-weight: 500;
 }
 
-.navbar-toggler-icon {
-  background-color: #fff;
+.navbar-nav .nav-link:hover {
+  color: #007bff; /* Blue color on hover */
 }
 
-.navbar-collapse {
-  justify-content: flex-end;
+.nav-dropdown-menu .nav-link {
+  color: #495057; /* Dark color for dropdown items */
 }
 
-.nav-dropdown-menu {
-  background-color: #007bff;
+.nav-dropdown-menu .nav-link:hover {
+  background-color: #e9ecef; /* Light background on hover */
+  color: #007bff; /* Blue color on hover */
 }
 
-.nav-dropdown-item {
-  color: #fff;
-  padding: 8px 20px;
+.ml-auto {
+  margin-left: auto;
 }
 
-.nav-dropdown-item:hover {
-  background-color: #00aaff;
-  color: #ffeb3b;
+.ml-3 {
+  margin-left: 1rem; /* Add left margin for spacing */
+}
+
+.mx-auto {
+  margin: 0 auto; /* Center the logo and title container */
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+  font-size: 1.5rem; /* Size of the JobSearch text */
+  font-weight: 700; /* Bold text */
+  color: #1e3c72; /* Primary color */
+  text-transform: uppercase; /* Uppercase text for emphasis */
+}
+
+.navbar-nav .nav-link {
+  color: #495057; /* Dark color for nav links */
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff; /* Blue color on hover */
+}
+
+.nav-dropdown-menu .nav-link {
+  color: #495057; /* Dark color for dropdown items */
+}
+
+.nav-dropdown-menu .nav-link:hover {
+  background-color: #e9ecef; /* Light background on hover */
+  color: #007bff; /* Blue color on hover */
+}
+
+/* Ensure links are pushed to the right */
+.ml-auto {
+  margin-left: auto;
+}
+
+.ml-3 {
+  margin-left: 1rem; /* Add left margin for spacing */
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+.ms-2 {
+  margin-left: 0.5rem; /* Spacing between logo and title */
 }

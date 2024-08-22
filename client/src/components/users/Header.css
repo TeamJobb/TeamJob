@@ -6,7 +6,6 @@
 	max-width: 100%; /* Allow the navbar to extend the full width */
 	margin: 0 auto; /* Center the navbar horizontally */
 	border-bottom: 1px solid #ddd; /* Optional: Add a subtle border at the bottom */
-	background-color: #f8f9fa; /* Optional: Light background color */
 	position: relative; /* Ensure positioning for child elements */
   }
   

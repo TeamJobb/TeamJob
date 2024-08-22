@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import axios from 'axios';
 
-// Coordonnées des pays pour simplifier
-const countryCoordinates = {
-  US: [37.0902, -95.7129],
-  CA: [56.1304, -106.3468],
-  FR: [46.6034, 1.8883],
-  // Ajoutez d'autres coordonnées ici
-};
-
-const MapComponent = ({ countryCode, zoom }) => {
-const [position, setPosition] = useState([51.505, -0.09]); // Position par défaut (Londres)
+const MapComponent = ({ location, zoom }) => {
+  const [position, setPosition] = useState([51.505, -0.09]); // Position par défaut (Londres)
 
   useEffect(() => {
-    if (countryCode && countryCoordinates[countryCode]) {
-      setPosition(countryCoordinates[countryCode]);
-    }
-  }, [countryCode]);
+    const fetchCoordinates = async () => {
+      if (location) {
+        try {
+          const response = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${location}`);
+          if (response.data.length > 0) {
+            console.log(response.data);
+            const { lat, lon } = response.data[0];
+            setPosition([parseFloat(lat), parseFloat(lon)]);
+          }
+        } catch (error) {
+          console.error('Error fetching coordinates', error);
+        }
+      }
+    };
+    fetchCoordinates();
+  }, [location]);
 
   return (
     <MapContainer center={position} zoom={zoom} style={{ height: '400px', width: '100%' }}>
@@ -27,7 +32,7 @@ const [position, setPosition] = useState([51.505, -0.09]); // Position par défa
       />
       <Marker position={position}>
         <Popup>
-          {countryCode ? `Country: ${countryCode}` : 'Select a country'}
+          {location ? `Location: ${location}` : 'Select a location'}
         </Popup>
       </Marker>
     </MapContainer>

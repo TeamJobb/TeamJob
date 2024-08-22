@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../Employers/employerReg.css';
 
 function EmployerRegister() {
   const [formData, setFormData] = useState({
@@ -19,23 +20,47 @@ function EmployerRegister() {
   };
 
   return (
-    <div className="container">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Company Name</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} className="form-control" />
-        </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} className="form-control" />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" name="password" value={formData.password} onChange={handleChange} className="form-control" />
-        </div>
-        <button type="submit" className="btn btn-primary">Register</button>
-      </form>
+    <div className="fiche-center">
+      <div className="cart">
+        <h1 className="RE">Register</h1><br></br><br></br><br></br>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+           
+            <input 
+              type="text" 
+               placeholder="Enter your Company Name"
+              name="name" 
+              value={formData.name} 
+              onChange={handleChange} 
+              className="form-control" 
+            />
+          </div>
+          <div className="form-group">
+           
+            <input 
+              type="email" 
+               placeholder="Enter your email"
+              name="email" 
+              value={formData.email} 
+              onChange={handleChange} 
+              className="form-control" 
+            />
+          </div>
+          <div className="form-group">
+           
+            <input 
+
+              type="password" 
+              placeholder="Enter your password"
+              name="password" 
+              value={formData.password} 
+              onChange={handleChange} 
+              className="form-control" 
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">Register</button>
+        </form>
+      </div>
     </div>
   );
 }
