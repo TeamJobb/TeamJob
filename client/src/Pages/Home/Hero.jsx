@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Banner from '../../components/Banner';
-import SearchSection from '../../components/SearchSection';
-import MapComponent from '../../components/MapComponent';
+import SearchSection from '../../components/SearchSection'; 
+import MapComponent from '../../components/MapComponent'; 
 import { Modal, Button, Spinner, ListGroup, Pagination, Dropdown, FormControl ,Form} from 'react-bootstrap';
 import { FaBriefcase, FaMapMarkerAlt, FaDollarSign, FaIndustry, FaClipboardList, FaBook, FaUser, FaMapPin } from 'react-icons/fa';
 
@@ -19,7 +19,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
 
   // List of available locations for filtering
-  const availableLocations = ['New York', 'Los Angeles', 'Chicago', 'San Francisco', 'Boston','Tunisie'];
+  const availableLocations = ['New York', 'Los Angeles', 'Chicago', 'San Francisco', 'Boston'];
 
   // Filter state
   const [selectedLocations, setSelectedLocations] = useState([]);
@@ -44,8 +44,6 @@ const Home = () => {
 
   const handleSearch = (searchLocation) => {
     setLocation(searchLocation);
-    const filtered = jobs.filter(job => job.jobLocation.toLowerCase().includes(searchLocation.toLowerCase()));
-    setFilteredJobs(filtered);
   };
 
   const handleJobClick = async (jobId) => {

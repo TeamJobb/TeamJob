@@ -1,26 +1,60 @@
-const { Message } = require('../models/messageModel.js'); // Adjust the import based on your models
+const Message = require('../models/messageModel.js');
 
-const sendMessage = async (req, res) => {
-  const { recipientId, content } = req.body;
-  try {
-    // Ensure the user ID is available in req.user (assuming authentication middleware)
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({ error: 'Unauthorized' });
+exports.getAllMessages = async (req, res) => {
+    try {
+        const messages = await Message.findAll();
+        res.json(messages);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch messages' });
     }
-
-    const message = await Message.create({
-      recipientId,
-      content,
-      senderId: req.user.id, // Use authenticated user ID
-    });
-
-    res.status(201).json(message);
-  } catch (error) {
-    console.error('Error sending message:', error);
-    res.status(500).json({ error: error.message });
-  }
 };
 
-module.exports = {
-  sendMessage,
+exports.getMessageById = async (req, res) => {
+    try {
+        const message = await Message.findByPk(req.params.id);
+        if (message) {
+            res.json(message);
+        } else {
+            res.status(404).json({ error: 'Message not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch message' });
+    }
+};
+
+exports.createMessage = async (req, res) => {
+    try {
+        const newMessage = await Message.create(req.body);
+        res.status(201).json(newMessage);
+    } catch (error) {
+        res.status(400).json({ error: 'Failed to create message' });
+    }
+};
+
+exports.updateMessage = async (req, res) => {
+    try {
+        const message = await Message.findByPk(req.params.id);
+        if (message) {
+            await message.update(req.body);
+            res.json(message);
+        } else {
+            res.status(404).json({ error: 'Message not found' });
+        }
+    } catch (error) {
+        res.status(400).json({ error: 'Failed to update message' });
+    }
+};
+
+exports.deleteMessage = async (req, res) => {
+    try {
+        const message = await Message.findByPk(req.params.id);
+        if (message) {
+            await message.destroy();
+            res.status(204).end();
+        } else {
+            res.status(404).json({ error: 'Message not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete message' });
+    }
 };

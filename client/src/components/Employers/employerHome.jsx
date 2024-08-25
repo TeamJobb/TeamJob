@@ -6,20 +6,20 @@ import leftImage from '../../assets/home2-img2.png';
 import rightImage from '../../assets/home3-img.png';
 
 
-import carouselImage1 from '../../assets/bannersay3.jpg'; // Replace with your actual image paths
+import carouselImage1 from '../../assets/bannersay3.jpg'; 
 import carouselImage2 from '../../assets/bannersay1.jpg';
 import carouselImage3 from '../../assets/bannarsay2.jpg';
 
 
-  // Define the styles here, inside the component scope
+  
   const carouselStyle = {
-    maxWidth: '100%',  // Adjust the width as needed
-    margin: 'auto'    // Center the carousel
+    maxWidth: '100%',  
+    margin: 'auto'    
   };
 
   const carouselItemStyle = {
-    maxHeight: '400px', // Adjust the height as needed
-    objectFit: 'cover'  // Ensure the image covers the container without distortion
+    maxHeight: '400px', 
+    objectFit: 'cover'  
   };
 
 
@@ -47,9 +47,10 @@ const HomePageEmployer = () => {
           <Col md={4}>
             <Card className="mb-4 shadow-sm border-0">
               <Card.Body>
-                <Card.Title><i className="fas fa-users icon-color"></i> Biggest Choice of Talent</Card.Title>
+                <Card.Title><i className="fas fa-users icon-color"></i>  Advertise My Vacancies</Card.Title>
                 <Card.Text>
-                  Access more than 52,000,000 CVs and millions of daily job seekers to find relevant, qualified, and fresh candidates.
+               
+                Use job postings to reach 10+ million monthly job seekers. Access more than 52,000,000 CVs and millions of daily job seekers .
                 </Card.Text>
                 <Button variant="primary">Try for Free</Button>
               </Card.Body>
@@ -58,11 +59,11 @@ const HomePageEmployer = () => {
           <Col md={4}>
             <Card className="mb-4 shadow-sm border-0">
               <Card.Body>
-                <Card.Title><i className="fas fa-clock icon-color"></i> Faster & Easier Hiring</Card.Title>
+                <Card.Title><i className="fas fa-search icon-color"></i> Search for Candidates</Card.Title>
                 <Card.Text>
-                  Use artificial intelligence to automate screening, assessments, and shortlisting to save time and effort on hiring.
+                  Search more than 52,000,000 CVs using targeted keywords to find your ideal candidate in seconds.
                 </Card.Text>
-                <Button variant="primary">Try for Free</Button>
+                <Button variant="primary">Learn More</Button>
               </Card.Body>
             </Card>
           </Col>
@@ -79,42 +80,7 @@ const HomePageEmployer = () => {
           </Col>
         </Row>
 
-        {/* Action Section */}
-        <Row className="mt-5 text-center">
-          <Col md={4}>
-            <Card className="mb-4 shadow-sm border-0">
-              <Card.Body>
-                <Card.Title><i className="fas fa-bullhorn icon-color"></i> Advertise My Vacancies</Card.Title>
-                <Card.Text>
-                  Use job postings to reach 10+ million monthly job seekers and receive instant auto-screened applicants.
-                </Card.Text>
-                <Button variant="outline-primary">Learn More</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Card className="mb-4 shadow-sm border-0">
-              <Card.Body>
-                <Card.Title><i className="fas fa-search icon-color"></i> Search for Candidates</Card.Title>
-                <Card.Text>
-                  Search more than 52,000,000 CVs using targeted keywords and 33+ filters to find your ideal candidate in seconds.
-                </Card.Text>
-                <Button variant="outline-primary">Learn More</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Card className="mb-4 shadow-sm border-0">
-              <Card.Body>
-                <Card.Title><i className="fas fa-user-tie icon-color"></i> Use a Sourcing Specialist</Card.Title>
-                <Card.Text>
-                  Share your job descriptions and let our talent sourcing specialists find qualified, relevant & interested candidates.
-                </Card.Text>
-                <Button variant="outline-primary">Learn More</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+        
 
         {/* Testimonials Section */}
         <Row className="mt-5 text-center">

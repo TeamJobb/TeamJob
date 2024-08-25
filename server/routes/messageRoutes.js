@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { sendMessage } = require('../controllers/messageController.js');
+const messageController = require('../controllers/messageController.js'); // Vérifiez le chemin
 
-// Assume authentication middleware is applied globally or at this route level
-router.post('/', sendMessage);
+// Définition des routes pour les messages
+router.get('/', messageController.getAllMessages);
+router.get('/:id', messageController.getMessageById);
+router.post('/', messageController.createMessage);
+router.put('/:id', messageController.updateMessage);
+router.delete('/:id', messageController.deleteMessage);
 
 module.exports = router;

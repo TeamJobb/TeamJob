@@ -16,9 +16,6 @@ const NavbarEmployer = () => {
         <Nav.Link as={Link} to="/Post-Job">
             Post Your Job
           </Nav.Link>
-          <Nav.Link as={Link} to="/Workspace">
-            My Workspace
-          </Nav.Link>
           <Nav.Link as={Link} to="/CV-Search">
             CV Search
           </Nav.Link>

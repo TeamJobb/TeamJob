@@ -1,30 +1,17 @@
+/* Ensure this class is only applied to the Navbar component */
 .custom-navbar {
   background-color: #f8f9fa; /* Light background color */
   border-bottom: 1px solid #dee2e6; /* Subtle border at the bottom */
   padding: 0.5rem 1rem; /* Adjust padding to fit the design */
 }
 
+/* Adjust the brand logo */
 .navbar-logo {
   height: 40px; /* Adjust the height of the logo */
   object-fit: contain; /* Ensure logo is properly contained */
 }
 
-.navbar-title {.custom-navbar {
-  background-color: #f8f9fa; /* Light background color */
-  border-bottom: 1px solid #dee2e6; /* Subtle border at the bottom */
-  padding: 0.5rem 1rem; /* Adjust padding to fit the design */
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-logo {
-  height: 40px; /* Adjust the height of the logo */
-  object-fit: contain; /* Ensure logo is properly contained */
-}
-
+/* Style for Navbar title */
 .navbar-title {
   font-size: 1.5rem; /* Size of the JobSearch text */
   font-weight: 700; /* Bold text */
@@ -58,53 +45,7 @@
   margin-left: 1rem; /* Add left margin for spacing */
 }
 
-.mx-auto {
-  margin: 0 auto; /* Center the logo and title container */
-}
-
 .d-flex {
   display: flex;
   align-items: center;
-}
-
-  font-size: 1.5rem; /* Size of the JobSearch text */
-  font-weight: 700; /* Bold text */
-  color: #1e3c72; /* Primary color */
-  text-transform: uppercase; /* Uppercase text for emphasis */
-}
-
-.navbar-nav .nav-link {
-  color: #495057; /* Dark color for nav links */
-  font-weight: 500;
-}
-
-.navbar-nav .nav-link:hover {
-  color: #007bff; /* Blue color on hover */
-}
-
-.nav-dropdown-menu .nav-link {
-  color: #495057; /* Dark color for dropdown items */
-}
-
-.nav-dropdown-menu .nav-link:hover {
-  background-color: #e9ecef; /* Light background on hover */
-  color: #007bff; /* Blue color on hover */
-}
-
-/* Ensure links are pushed to the right */
-.ml-auto {
-  margin-left: auto;
-}
-
-.ml-3 {
-  margin-left: 1rem; /* Add left margin for spacing */
-}
-
-.d-flex {
-  display: flex;
-  align-items: center;
-}
-
-.ms-2 {
-  margin-left: 0.5rem; /* Spacing between logo and title */
 }

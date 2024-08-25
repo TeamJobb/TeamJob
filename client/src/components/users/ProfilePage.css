@@ -4,3 +4,141 @@
     background-position: center;
     background-repeat: no-repeat;
   }
+
+  /* Style global des cartes */
+.profile-card,
+.profile-info-card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.profile-card:hover,
+.profile-info-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Style du titre de la carte */
+
+.profile-info-card .card-title {
+  color: #03366d; /* Bootstrap's primary blue color */
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+}
+
+
+.profile-completeness-card {
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-completeness-card .card-body {
+  padding: 20px;
+}
+
+.profile-completeness-card .card-title {
+  font-size: 1.25rem;
+  color: #b15539; /* Primary color */
+  margin-bottom: 16px;
+}
+
+.profile-completeness-chart {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-completeness-card .completeness-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.profile-completeness-card .completeness-text span {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #ff0000; /* Default to red */
+}
+
+.profile-completeness-card .completeness-text.green span {
+  background-color: #28a745; /* Green for high completion */
+}
+
+.profile-completeness-card .completeness-text.red span {
+  background-color: #dc3545; /* Red for low completion */
+}
+
+.profile-completeness-card .text-secondary {
+  color: #640a03;
+}
+
+.profile-completeness-card .btn-primary {
+  background-color: #058830;
+  border-color: #025c2b;
+}
+
+.profile-completeness-card .btn-primary:hover {
+  background-color: #026b2e;
+  border-color: #026629;
+}
+
+
+/* Style des images dans les cartes */
+.profile-card .img-fluid {
+  border-radius: 50%;
+  border: 3px solid #e9ecef;
+}
+
+/* Style des boutons */
+.profile-card .btn-link,
+.profile-info-card .btn-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.profile-card .btn-link:hover,
+.profile-info-card .btn-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* Style des sections dans les cartes */
+.profile-info-card .mb-3 {
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-info-card .mb-3:last-child {
+  border-bottom: none;
+}
+
+/* Style des liens sociaux */
+.profile-info-card .card-body a {
+  color: #007bff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.profile-info-card .card-body a:hover {
+  text-decoration: underline;
+}
+
+.profile-info-card .card-body .fa {
+  margin-right: 8px;
+}
+

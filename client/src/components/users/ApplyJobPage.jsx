@@ -1,14 +1,15 @@
 // src/pages/ApplyJobPage.js
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Form, Button, Alert, Spinner } from 'react-bootstrap';
+import { Alert, Spinner } from 'react-bootstrap';
+import ApplyForm from './ApplyForm.jsx'; 
+import { UserContext } from '../users/UserContext.jsx';
 
 const ApplyJobPage = () => {
   const { jobId } = useParams();
+  const { user } = useContext(UserContext);
   const [job, setJob] = useState(null);
-  const [cvFile, setCvFile] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -16,37 +17,34 @@ const ApplyJobPage = () => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`http://localhost:3020/api/jobs/${jobId}`);
         setJob(response.data);
       } catch (error) {
         console.error('Error fetching job details', error);
         setError('Error fetching job details');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchJob();
   }, [jobId]);
 
-  const handleFileChange = (e) => {
-    setCvFile(e.target.files[0]);
-  };
-
-  const handleApply = async (e) => {
-    e.preventDefault();
+  const handleApply = async (formData) => {
+    if (!user) {
+      setError('You must be logged in to apply');
+      return;
+    }
+    
     setLoading(true);
-
-    const formData = new FormData();
-    formData.append('cv', cvFile);
-
     try {
-      await axios.post(`http://localhost:3020/api/job-applications`, {
+      const applicationData = {
+        userId: user.id,
         jobId,
-        cvFile: formData,
-      }, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+        ...formData,
+      };
+      await axios.post(`http://localhost:3020/api/applications`, applicationData);
       setSuccess(true);
     } catch (error) {
       console.error('Error applying for job', error);
@@ -71,13 +69,7 @@ const ApplyJobPage = () => {
           <p>{job.salaryRange}</p>
         </div>
       )}
-      <Form onSubmit={handleApply}>
-        <Form.Group controlId="formFile">
-          <Form.Label>Upload CV or Image</Form.Label>
-          <Form.Control type="file" onChange={handleFileChange} />
-        </Form.Group>
-        <Button variant="primary" type="submit">Submit Application</Button>
-      </Form>
+      <ApplyForm onApply={handleApply} />
     </div>
   );
 };

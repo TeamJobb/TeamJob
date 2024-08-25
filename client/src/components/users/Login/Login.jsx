@@ -87,7 +87,7 @@ const LoginPage = ({ loggedIn, setLoggedIn }) => {
                                     />
                                 </div>
                                 <div className="text"><a href="#">Forgot password?</a></div>
-                                <div className="button input-box">
+                                <div className="butt input-box">
                                     <input type="submit" value="Submit" />
                                 </div>
                                 <div className="text sign-up-text">

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import '@fortawesome/fontawesome-free/css/all.css';
-import './Navbar.css'; // Ensure your custom styles are in this file
+import './Navbar.css'; 
 
 const NavBar = () => {
     return (
@@ -15,7 +15,7 @@ const NavBar = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link as={Link} to="/about">About Us</Nav.Link>
-                        <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+                        <Nav.Link as={Link} to="/Contact-Us">Contact</Nav.Link>
                     </Nav>
                     <div className="ml-auto d-flex">
                         <NavDropdown title="Job Seekers" id="job-seekers-dropdown">

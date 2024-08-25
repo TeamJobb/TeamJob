@@ -8,14 +8,12 @@ const PostJobForm = () => {
   const [jobDetails, setJobDetails] = useState({
     title: '',
     company: '',
-    location: '',
-    description: '',
-    requirements: [],
     salaryRange: '',
     vacancies: '',
     employmentType: '',
     jobLocation: '',
     jobIndustry: '',
+    requirements: [],
     age: '',
     experience: '',
     nationality: '',
@@ -51,7 +49,6 @@ const PostJobForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Convert array to comma-separated string if backend expects a string
       const formattedJobDetails = {
         ...jobDetails,
         requirements: jobDetails.requirements.join(', ')
@@ -63,8 +60,8 @@ const PostJobForm = () => {
         navigate('/MyWorkSpace');
       }
     } catch (error) {
-      console.error('Error posting job:', error);
-      alert('Error posting job: ' + error.message);
+      console.error('Error posting job:', error.response ? error.response.data : error.message);
+      alert('Error posting job: ' + (error.response ? error.response.data.message : error.message));
     }
   };
 
@@ -74,6 +71,7 @@ const PostJobForm = () => {
         <Card.Body>
           <h2 className="mb-4">Post a New Job</h2>
           <Form onSubmit={handleSubmit}>
+            {/* Form Groups for each field */}
             <Form.Group controlId="jobTitle" className="mb-3">
               <Form.Label>Job Title</Form.Label>
               <Form.Control
@@ -110,10 +108,10 @@ const PostJobForm = () => {
                 required
               >
                 <option value="">Select Salary Range</option>
-                <option value="0-1000">0-1000</option>
-                <option value="1000-3000">1000-3000</option>
-                <option value="3000-5000">3000-5000</option>
-                <option value="5000+">5000+</option>
+                <option value="0-1000">0-1000 USD</option>
+                <option value="1000-3000">1000-3000 USD</option>
+                <option value="3000-5000">3000-5000 USD</option>
+                <option value="5000+">5000+ USD</option>
               </Form.Control>
             </Form.Group>
 
@@ -154,18 +152,13 @@ const PostJobForm = () => {
             <Form.Group controlId="jobLocation" className="mb-3">
               <Form.Label>Job Location</Form.Label>
               <Form.Control
-                as="select"
+                type="text"
                 name="jobLocation"
                 value={jobDetails.jobLocation}
                 onChange={handleChange}
+                placeholder="Enter job location"
                 required
-              >
-                <option value="">Select Job Location</option>
-                <option value="New York">New York</option>
-                <option value="London">London</option>
-                <option value="Dubai">Dubai</option>
-                <option value="Tokyo">Tokyo</option>
-              </Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId="jobIndustry" className="mb-3">
@@ -182,6 +175,7 @@ const PostJobForm = () => {
                 <option value="Healthcare">Healthcare</option>
                 <option value="Finance">Finance</option>
                 <option value="Education">Education</option>
+                <option value="Consulting">Consulting</option>
               </Form.Control>
             </Form.Group>
 
@@ -198,21 +192,30 @@ const PostJobForm = () => {
                   />
                 </Col>
                 <Col md={2}>
-                  <Button variant="outline-success" onClick={addRequirement} className="w-100">
-                    <i className="bi bi-plus-circle"></i> Add
+                  <Button
+                    variant="outline-primary"
+                    onClick={addRequirement}
+                    className="w-100"
+                  >
+                    Add
                   </Button>
                 </Col>
               </Row>
-              <ul className="list-group mt-2">
+              <Form.Text className="text-muted">Add requirements one by one.</Form.Text>
+            </Form.Group>
+
+            <Form.Group controlId="requirementsList" className="mb-3">
+              <Form.Label>Requirements List</Form.Label>
+              <ul className="list-unstyled">
                 {jobDetails.requirements.map((req, index) => (
-                  <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                  <li key={index} className="d-flex justify-content-between align-items-center">
                     {req}
                     <Button
                       variant="outline-danger"
                       size="sm"
                       onClick={() => removeRequirement(index)}
                     >
-                      <i className="bi bi-x-circle"></i>
+                      Remove
                     </Button>
                   </li>
                 ))}
@@ -220,27 +223,37 @@ const PostJobForm = () => {
             </Form.Group>
 
             <Form.Group controlId="age" className="mb-3">
-              <Form.Label>Age</Form.Label>
+              <Form.Label>Age Range</Form.Label>
               <Form.Control
-                type="number"
+                as="select"
                 name="age"
                 value={jobDetails.age}
                 onChange={handleChange}
-                placeholder="Enter age"
-                min="0"
-              />
+                required
+              >
+                <option value="">Select Age Range</option>
+                <option value="18-25">18-25</option>
+                <option value="26-35">26-35</option>
+                <option value="36-45">36-45</option>
+                <option value="46+">46+</option>
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="experience" className="mb-3">
-              <Form.Label>Experience (in years)</Form.Label>
+              <Form.Label>Experience</Form.Label>
               <Form.Control
-                type="number"
+                as="select"
                 name="experience"
                 value={jobDetails.experience}
                 onChange={handleChange}
-                placeholder="Enter experience"
-                min="0"
-              />
+                required
+              >
+                <option value="">Select Experience Level</option>
+                <option value="0-1">0-1 Year</option>
+                <option value="1-3">1-3 Years</option>
+                <option value="3-5">3-5 Years</option>
+                <option value="5+">5+ Years</option>
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="nationality" className="mb-3">
@@ -251,17 +264,19 @@ const PostJobForm = () => {
                 value={jobDetails.nationality}
                 onChange={handleChange}
                 placeholder="Enter nationality"
+                required
               />
             </Form.Group>
 
             <Form.Group controlId="education" className="mb-3">
-              <Form.Label>Minimum Education</Form.Label>
+              <Form.Label>Education</Form.Label>
               <Form.Control
                 type="text"
                 name="education"
                 value={jobDetails.education}
                 onChange={handleChange}
-                placeholder="Enter minimum education"
+                placeholder="Enter required education"
+                required
               />
             </Form.Group>
 
@@ -272,8 +287,9 @@ const PostJobForm = () => {
                 name="gender"
                 value={jobDetails.gender}
                 onChange={handleChange}
+                required
               >
-                <option value="">Select Gender</option>
+                <option value="">Select Gender Preference</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Any">Any</option>
@@ -288,6 +304,7 @@ const PostJobForm = () => {
                 value={jobDetails.residenceLocation}
                 onChange={handleChange}
                 placeholder="Enter residence location"
+                required
               />
             </Form.Group>
 
@@ -299,23 +316,30 @@ const PostJobForm = () => {
                 value={jobDetails.major}
                 onChange={handleChange}
                 placeholder="Enter major"
+                required
               />
             </Form.Group>
 
             <Form.Group controlId="careerLevel" className="mb-3">
               <Form.Label>Career Level</Form.Label>
               <Form.Control
-                type="text"
+                as="select"
                 name="careerLevel"
                 value={jobDetails.careerLevel}
                 onChange={handleChange}
-                placeholder="Enter career level"
-              />
+                required
+              >
+                <option value="">Select Career Level</option>
+                <option value="Entry Level">Entry Level</option>
+                <option value="Mid Level">Mid Level</option>
+                <option value="Senior Level">Senior Level</option>
+                <option value="Manager">Manager</option>
+                <option value="Director">Director</option>
+                <option value="Executive">Executive</option>
+              </Form.Control>
             </Form.Group>
 
-            <Button variant="primary" type="submit">
-              Post Job
-            </Button>
+            <Button type="submit" variant="primary">Post Job</Button>
           </Form>
         </Card.Body>
       </Card>

@@ -98,9 +98,9 @@ const CVSearchPage = () => {
   }
 
   return (
-    <Container fluid className="cv-search-container">
+    <Container fluid className="cv1-search-container">
       {/* Section with text and image */}
-      <Row className="welcome-section mb-4">
+      <Row className="welcome-section1 mb-4">
         <Col md={6}>
           <h1>Welcome to CV Search</h1>
           <row>'       </row>

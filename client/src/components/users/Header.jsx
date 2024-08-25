@@ -1,10 +1,28 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../users/UserContext.jsx';
-import './Header.css'; // Assurez-vous que ce fichier contient les styles nécessaires
+import axios from 'axios';
+import './Header.css'; 
 
 const Header = () => {
   const { user } = useContext(UserContext);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    const fetchUnreadCount = async () => {
+      if (user) {
+        try {
+          const response = await axios.get('http://localhost:3020/api/messages/unread');
+          setUnreadCount(response.data.count);
+        } catch (error) {
+          console.error('Error fetching unread message count:', error);
+        }
+      }
+    };
+
+    fetchUnreadCount();
+  }, [user]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white py-2 sticky-top">
@@ -23,28 +41,29 @@ const Header = () => {
             </li>
           )}
           <li className="nav-item">
-            <Link className="nav-link" to="/Templates">Templates</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/Features">Features</Link>
-          </li>
-          <li className="nav-item">
             <Link className="nav-link" to="/blog">Blog</Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/dashboard">Dashboard</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/applications">
-              <i className="fas fa-folder"></i> {/* Icon for applications */}
-              Applications
-            </Link>
-          </li>
+          {user && (
+            <li className="nav-item">
+              <Link className="nav-link" to={`/user/${user.id}/applications`}>
+                <i className="fas fa-folder"></i> 
+                Applications
+              </Link>
+            </li>
+          )}
         </ul>
         <ul className="navbar-nav align-items-center">
           <li className="nav-item">
             <Link className="nav-link" to="/user-list">
-              <i className="fas fa-users"></i> {/* Icon for user list */}
+              <i className="fas fa-users"></i> 
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/messages">
+              <FaEnvelope />
+              {unreadCount > 0 && (
+                <span className="badge bg-danger ms-1">{unreadCount}</span>
+              )}
             </Link>
           </li>
           <li className="nav-item">

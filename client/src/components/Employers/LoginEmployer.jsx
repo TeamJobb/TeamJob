@@ -62,7 +62,7 @@ function EmployerLogin() {
                                             required
                                         />
                                     </div>
-                                    <div className="button input-box">
+                                    <div className="butt input-box">
                                         <input type="submit" value="Submit" />
                                     </div>
                                 </div>

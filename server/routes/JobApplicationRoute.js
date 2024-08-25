@@ -1,25 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const path = require('path');
-const { applyForJob, getApplicationsByUserId } = require('../controllers/JobApplicationController.js');
+const applicationController = require('../controllers/JobApplicationController.js');
 
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
+// Créer une candidature
+router.post('/', applicationController.createApplication);
 
-const upload = multer({ storage });
+// Obtenir toutes les candidatures d'un utilisateur
+router.get('/user/:userId', applicationController.getUserApplications);
 
-// Route for applying to a job
-router.post('/:jobId/apply', upload.single('cvFile'), applyForJob);
-
-// Route for getting all applications by user ID
-router.get('/user/:userId', getApplicationsByUserId);
+// Obtenir toutes les candidatures pour un emploi
+router.get('/job/:jobId', applicationController.getJobApplications);
 
 module.exports = router;

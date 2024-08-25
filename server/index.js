@@ -15,7 +15,10 @@ const Message = require('./models/messageModel.js');
 const Notification = require('./models/notificationModel.js');
 const Employer = require('./models/employeruser.js'); 
 const Job = require('./models/ModelJobPost.js'); 
-const JobApplication = require('./models/JobApplicationModel.js');
+const applicationRoutes = require('./routes/JobApplicationRoute.js');
+
+// Créer les associations
+require('./models/associateModelusermessage.js');
 const app = express();
 
 app.use(bodyParser.json());
@@ -24,9 +27,15 @@ app.use(cors());
 app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/notifications', notificationRoutes);
-app.use('/api/employers', employerRoutes); 
+app.use('/api/employers', employerRoutes);
 app.use('/api/jobs', jobRoutes);
-app.use('/api/job-applications', jobApplicationRoutes);
+app.use('/api/applications', applicationRoutes);
+
+// Middleware de gestion des erreurs
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
 
 const PORT = process.env.PORT || 3020;
 

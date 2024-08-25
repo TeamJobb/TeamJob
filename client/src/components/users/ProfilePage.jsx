@@ -1,347 +1,324 @@
-////////updated done
-
 import React, { useState, useEffect } from 'react';
-import { Carousel, Modal, Button, Form, Row, Col, Card } from 'react-bootstrap'; 
+import { Carousel, Modal, Button, Form, Row, Col, Card, Spinner } from 'react-bootstrap'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faTwitter, faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import "react-calendar/dist/Calendar.css";
+
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ProfilePage.css'
-import FriendRequests from './FriendRequestCard.jsx';
 import testImage from '../../assets/user-profile default.png'; 
-import learnImage from '../../assets/learnImage.jpg'
+import Imageskillstest from '../../assets/learnImage.jpg'
 
-const ProfilePage = ({ onNewMessage }) => {
-  const [showMessageModal, setShowMessageModal] = useState(false);
-  const [message, setMessage] = useState('');
-  const [selectedCompany, setSelectedCompany] = useState('');
+
+
+ChartJS.register(Title, Tooltip, Legend, ArcElement);
+
+const ProfilePage = () => {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(null);
-  const [applications, setApplications] = useState({ submitted: 8, interviewed: 5, validated: 2, rejected: 6 });
-  const [cvFile, setCvFile] = useState(null);
+  const [editField, setEditField] = useState('');
+  const [editValue, setEditValue] = useState('');
+  const [showEditModal, setShowEditModal] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      if (!id) {
-        setError('User ID is missing.');
-        return;
-      }
-
+      if (!id) return;
       try {
         const response = await axios.get(`http://localhost:3020/api/users/${id}`);
         setUser(response.data);
-        setApplications(response.data.applications || {});
       } catch (error) {
-        if (error.response) {
-          setError(`Error: ${error.response.status} ${error.response.statusText}`);
-        } else if (error.request) {
-          setError('Error: No response from server');
-        } else {
-          setError(`Error: ${error.message}`);
-        }
+        console.error('Error fetching user profile:', error);
       }
     };
 
     fetchUserProfile();
   }, [id]);
 
-  const handleMessageChange = (event) => setMessage(event.target.value);
-  const handleCompanyChange = (event) => setSelectedCompany(event.target.value);
-
-  const handleSendMessage = () => {
-    const newMessage = {
-      id: Date.now(),
-      company: selectedCompany,
-      content: message,
-    };
-    onNewMessage(newMessage);
-    setShowMessageModal(false);
-    navigate('/messages');
+  const handleEdit = (field) => {
+    if (user) {
+      setEditField(field);
+      setEditValue(user[field] || '');
+      setShowEditModal(true);
+    }
   };
 
-  const handleGetStartedClick = () => {
-    window.location.href = 'https://resume.io/resume-templates';
+  const handleEditChange = (event) => {
+    setEditValue(event.target.value);
   };
 
-  const handleCvFileChange = (e) => {
-    setCvFile(e.target.files[0]);
+  const calculateProfileCompletion = (userData) => {
+    let completeness = 0;
+    const fields = ['firstName', 'lastName', 'email', 'phone', 'address', 'job_title', 'skills', 'experience', 'education'];
+    fields.forEach(field => {
+      if (userData[field]) completeness += 10; 
+    });
+    return completeness;
   };
 
-  const handleTakeTestClick = () => {
-    window.open('https://www.coursera.org', '_blank');
+  const profileCompletion = user ? calculateProfileCompletion(user) : 0;
+
+  const chartData = {
+    labels: ['Completed', 'Remaining'],
+    datasets: [
+      {
+        data: [profileCompletion, 100 - profileCompletion],
+        backgroundColor: ['#82f39d', '#b15539'],
+        borderWidth: 1,
+      },
+    ],
   };
 
-  const companies = [
-    { id: 1, name: 'Company A' },
-    { id: 2, name: 'Company B' },
-    { id: 3, name: 'Company C' },
-  ];
-
-  if (error) {
-    return (
-      <div className="container mt-4">
-        <div className="alert alert-danger" role="alert">{error}</div>
-      </div>
-    );
-  }
+  const handleSaveEdit = async () => {
+    if (editField && user) {
+      try {
+        await axios.put(`http://localhost:3020/api/users/${id}`, {
+          [editField]: editValue
+        });
+        setUser({ ...user, [editField]: editValue });
+        setShowEditModal(false);
+      } catch (error) {
+        console.error('Error updating user:', error);
+      }
+    }
+  };
 
   if (!user) {
     return (
-      <div className="container mt-4">
-        <div className="alert alert-info" role="alert">Loading...</div>
+      <div className="container mt-4 text-center">
+        <Spinner animation="border" variant="primary" />
+        <p className="mt-3">Loading...</p>
       </div>
     );
   }
 
- 
-
   return (
-    <>
-      
-      <section className="profile-background bg-light py-5">
-        <div className="container">
-          <div className="row mb-4">
-            <div className="col">
-            <nav aria-label="breadcrumb" className="bg-white rounded p-3 shadow-sm">
-  <ol className="breadcrumb mb-0">
-    <li className="breadcrumb-item active" aria-current="page">
-      Welcome 
-      <span 
-        style={{ 
-          fontWeight: 'bold', 
-          color: '#003366', 
-          marginLeft: '0.5rem' 
-        }}
-      >
-        {user.firstName} {user.lastName}
-      </span>
-      , Dive into new opportunities with enthusiasm and uncover the career paths that await !
-    </li>
-  </ol>
-</nav>
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-lg-4">
+          <Card className="profile-card shadow-lg border-0 mb-4">
+            <Card.Body className="text-center">
+              <img
+                src={user.image || testImage}
+                alt="Profile"
+                className="rounded-circle img-fluid mb-3"
+                style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+              />
+              <h5 className="card-title">
+                <FontAwesomeIcon 
+                  icon={faEdit} 
+                  className="me-2 text-primary cursor-pointer"
+                  onClick={() => handleEdit('firstName')}
+                  style={{ fontSize: '1.2rem' }}
+                />
+                {user.firstName} 
+                <FontAwesomeIcon 
+                  icon={faEdit} 
+                  className="ms-2 text-primary cursor-pointer"
+                  onClick={() => handleEdit('lastName')}
+                  style={{ fontSize: '1.2rem' }}
+                />
+                {user.lastName}
+              </h5>
+              <p className="card-text text-muted">{user.job_title || 'Job Title Not Provided'}</p>
+              <p className="card-text text-muted mb-4">{user.location || 'Location Not Provided'}</p>
+            </Card.Body>
+          </Card>
 
-            </div>
-          </div>
+          <Card className="profile-completeness-card shadow-lg border-0 mb-4 rounded-lg">
+  <Card.Body className="p-4">
+    <h5 className="card-title mb-3 text-primary">Improve Your Profile</h5>
+    <div className="profile-completeness-chart mb-3">
+      <Pie data={chartData} />
+    </div>
+    <div className={`completeness-text mb-2 ${profileCompletion >= 80 ? 'green' : 'red'}`}>
+      <span>{profileCompletion}%</span> Complete
+    </div>
+    <p className="text-secondary">
+      Reach a profile strength of 80% to be in the top 10% of highly visible users.
+    </p>
+   
+  </Card.Body>
+</Card>
 
-          <div className="row">
-            <div className="col-lg-4">
-              <div className="card mb-4 shadow-lg border-0">
-                <div className="card-body text-center">
-                  <img
-                   src={user.image ? user.image : testImage} // Affiche l'image cloudinary
-                    alt="Profile"
-                    className="rounded-circle img-fluid mb-3"
-                    style={{ width: '150px', height: '150px', objectFit: 'cover' }}
-                  />
-                  <h5 className="card-title text-primary mb-1">{user.firstName} {user.lastName}</h5>
-                  <p className="card-text text-muted">{user.job_title || 'Job Title Not Provided'}</p>
-                  <p className="card-text text-muted mb-4">{user.location || 'Location Not Provided'}</p>
-                  <Button variant="primary" onClick={() => setShowMessageModal(true)}>Message</Button>
-                </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item d-flex justify-content-between align-items-center">
-                    <span className="fw-bold">Website</span>
-                    <p className="mb-0">{user.website || 'Website Not Provided'}</p>
-                  </li>
-                  <li className="list-group-item d-flex align-items-center">
-                    <FontAwesomeIcon icon={faGithub} size="lg" className="text-muted me-2" />
-                    <p className="mb-0">{user.github || 'GitHub Not Provided'}</p>
-                  </li>
-                  <li className="list-group-item d-flex align-items-center">
-                    <FontAwesomeIcon icon={faTwitter} size="lg" className="text-info me-2" />
-                    <p className="mb-0">{user.twitter || 'Twitter Not Provided'}</p>
-                  </li>
-                  <li className="list-group-item d-flex align-items-center">
-                    <FontAwesomeIcon icon={faInstagram} size="lg" className="text-danger me-2" />
-                    <p className="mb-0">{user.instagram || 'Instagram Not Provided'}</p>
-                  </li>
-                  <li className="list-group-item d-flex align-items-center">
-                    <FontAwesomeIcon icon={faFacebookF} size="lg" className="text-primary me-2" />
-                    <p className="mb-0">{user.facebook || 'Facebook Not Provided'}</p>
-                  </li>
-                </ul>
+          <Card className="profile-card shadow-lg border-0 mb-4">
+            <Card.Body>
+              <h5 className="card-title"></h5>
+              <div className="mb-3">
+                <h6 className="fw-bold">GitHub</h6>
+                <a href={user.github || '#'} className="text-decoration-none">
+                  <FontAwesomeIcon icon={faGithub} /> {user.github || 'Not Provided'}
+                </a>
               </div>
-              <div className="card mb-4 shadow-lg border-0">
-                <div className="card-body text-center">
-                  <h3 className="my-4">The Online Resume Builder You Deserve</h3>
-                  <p>Creating a Professional Resume and Cover Letter Has Never Been So Easy</p>
-                  <Button variant="primary" onClick={handleGetStartedClick}>Get Started for Free</Button>
-                </div>
+              <div className="mb-3">
+                <h6 className="fw-bold">Twitter</h6>
+                <a href={user.twitter || '#'} className="text-decoration-none">
+                  <FontAwesomeIcon icon={faTwitter} /> {user.twitter || 'Not Provided'}
+                </a>
               </div>
-              <FriendRequests />
-            </div>
-
-            <div className="col-lg-8">
-              <div className="card mb-4 shadow-lg border-0">
-                <div className="card-body">
-                  <div className="row mb-3">
-                    <div className="col-sm-3">
-                      <p className="mb-0 fw-bold">Full Name</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.firstName} {user.lastName}</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row mb-3">
-                    <div className="col-sm-3">
-                      <p className="mb-0 fw-bold">Email</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.email}</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row mb-3">
-                    <div className="col-sm-3">
-                      <p className="mb-0 fw-bold">Phone</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.phone}</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row mb-3">
-                    <div className="col-sm-3">
-                      <p className="mb-0 fw-bold">Mobile</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.mobile}</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row mb-3">
-                    <div className="col-sm-3">
-                      <p className="mb-0 fw-bold">Education</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.education}</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row mb-3">
-                    <div className="col-sm-3">
-                      <p className="mb-0 fw-bold">Experience</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.experience}</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row mb-3">
-                    <div className="col-sm-3">
-                      <p className="mb-0 fw-bold">Skills</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.skills}</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="row mb-3">
-                    <div className="col-sm-3">
-                      <p className="mb-0 fw-bold">Address</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <p className="text-muted mb-0">{user.address}</p>
-                    </div>
-                  </div>
-                </div>
+              <div className="mb-3">
+                <h6 className="fw-bold">Instagram</h6>
+                <a href={user.instagram || '#'} className="text-decoration-none">
+                  <FontAwesomeIcon icon={faInstagram} /> {user.instagram || 'Not Provided'}
+                </a>
               </div>
-              <div className="card mb-4 shadow-lg border-0">
-                <div className="card-body">
-                  <h5 className="card-title">My Applications</h5>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <Card className="mb-3">
-                        <Card.Body>
-                          <Card.Title>Submitted Applications</Card.Title>
-                          <Card.Text>{applications.submitted || 0}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </div>
-                    <div className="col-md-6">
-                      <Card className="mb-3">
-                        <Card.Body>
-                          <Card.Title>Interviewed</Card.Title>
-                          <Card.Text>{applications.interviewed || 0}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <Card className="mb-3">
-                        <Card.Body>
-                          <Card.Title>Validated</Card.Title>
-                          <Card.Text>{applications.validated || 0}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </div>
-                    <div className="col-md-6">
-                      <Card className="mb-3">
-                        <Card.Body>
-                          <Card.Title>Rejected</Card.Title>
-                          <Card.Text>{applications.rejected || 0}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </div>
-                  </div>
-                </div>
+              <div className="mb-3">
+                <h6 className="fw-bold">Facebook</h6>
+                <a href={user.facebook || '#'} className="text-decoration-none">
+                  <FontAwesomeIcon icon={faFacebookF} /> {user.facebook || 'Not Provided'}
+                </a>
               </div>
-
-{/* Test Card */}
-<Card className="mb-4 shadow-lg border-0">
-                <Card.Body>
-                  <div className="d-flex align-items-center">
-                    <img src={learnImage} alt="test" className="img-fluid" style={{ width: '200px', height: 'auto', marginRight: '20px' }} />
-                    <div>
-                      <h5 className="card-title">Take a Skill Assessment Test</h5>
-                      <p className="card-text">Click the button below to start a skill assessment test to showcase your skills.</p>
-                      <Button variant="primary" onClick={handleTakeTestClick}>Take Test</Button>
-                    </div>
-                  </div>
-                </Card.Body>
-              </Card>
-
-              <Modal show={showMessageModal} onHide={() => setShowMessageModal(false)}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Send a Message</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form>
-                    <Form.Group as={Row} className="mb-3" controlId="formCompany">
-                      <Form.Label column sm="3">Select Company</Form.Label>
-                      <Col sm="9">
-                        <Form.Control as="select" value={selectedCompany} onChange={handleCompanyChange}>
-                          <option value="">Select a company</option>
-                          {companies.map((company) => (
-                            <option key={company.id} value={company.name}>{company.name}</option>
-                          ))}
-                        </Form.Control>
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlId="formMessage">
-                      <Form.Label column sm="3">Message</Form.Label>
-                      <Col sm="9">
-                        <Form.Control as="textarea" rows={3} value={message} onChange={handleMessageChange} />
-                      </Col>
-                    </Form.Group>
-                  </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={() => setShowMessageModal(false)}>Close</Button>
-                  <Button variant="primary" onClick={handleSendMessage}>Send Message</Button>
-                </Modal.Footer>
-              </Modal>
-            </div>
-          </div>
+            </Card.Body>
+          </Card>
+          
         </div>
-      </section>
-    </>
+
+        <div className="col-lg-8">
+          <Card className="profile-info-card mb-4">
+            <Card.Body>
+              <h5 className="card-title">PERSONAL INFORMATION</h5>
+              <div className="mb-3 d-flex justify-content-between align-items-center">
+                <h6 className="editable-info" style={{ fontWeight: 'bold' }}>Email:   
+                  <span style={{ fontWeight: 'normal', marginLeft: '0.5rem' }}> {user.email || 'Email Not Provided'}</span>
+                </h6>
+                <Button 
+                  variant="link" 
+                  onClick={() => handleEdit('email')}
+                >
+                  <FontAwesomeIcon className="edit-icon" icon={faEdit} /> Edit
+                </Button>
+              </div>
+              <div className="mb-3 d-flex justify-content-between align-items-center">
+                <h6 className="editable-info" style={{ fontWeight: 'bold' }}>Phone:   
+                  <span style={{ fontWeight: 'normal', marginLeft: '0.5rem' }}> {user.phone || 'Phone Not Provided'}</span>
+                </h6>
+                <Button 
+                  variant="link"
+                  onClick={() => handleEdit('phone')}
+                >
+                  <FontAwesomeIcon icon={faEdit} /> Edit
+                </Button>
+              </div>
+              <div className="mb-3 d-flex justify-content-between align-items-center">
+                <h6 className="editable-info" style={{ fontWeight: 'bold' }}>Address:   
+                  <span style={{ fontWeight: 'normal', marginLeft: '0.5rem' }}> {user.address || 'Address Not Provided'} </span>
+                </h6>
+                <Button 
+                  variant="link"
+                  onClick={() => handleEdit('address')}
+                >
+                  <FontAwesomeIcon icon={faEdit} /> Edit
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+
+          <Card className="profile-info-card mb-4">
+            <Card.Body>
+              <h5 className="card-title">PROFESSIONAL INFORMATION</h5>
+              <div className="mb-3 d-flex justify-content-between align-items-center">
+                <h6 className="editable-info" style={{ fontWeight: 'bold' }}>Job Title:   
+                  <span style={{ fontWeight: 'normal', marginLeft: '0.5rem' }}> {user.job_title || 'Job Title Not Provided'} </span>
+                </h6>
+                <Button 
+                  variant="link"
+                  onClick={() => handleEdit('job_title')}
+                >
+                  <FontAwesomeIcon icon={faEdit} /> Edit
+                </Button>
+              </div>
+              <div className="mb-3 d-flex justify-content-between align-items-center">
+                <h6 className="editable-info" style={{ fontWeight: 'bold' }}>Skills:   
+                  <span style={{ fontWeight: 'normal', marginLeft: '0.5rem' }}> {user.skills || 'Skills Not Provided'} </span>
+                </h6>
+                <Button 
+                  variant="link"
+                  onClick={() => handleEdit('skills')}
+                >
+                  <FontAwesomeIcon icon={faEdit} /> Edit
+                </Button>
+              </div>
+              <div className="mb-3 d-flex justify-content-between align-items-center">
+                <h6 className="editable-info" style={{ fontWeight: 'bold' }}>Experience:   
+                  <span style={{ fontWeight: 'normal', marginLeft: '0.5rem' }}> {user.experience || 'Experience Not Provided'} </span>
+                </h6>
+                <Button 
+                  variant="link"
+                  onClick={() => handleEdit('experience')}
+                >
+                  <FontAwesomeIcon icon={faEdit} /> Edit
+                </Button>
+              </div>
+              <div className="mb-3 d-flex justify-content-between align-items-center">
+                <h6 className="editable-info" style={{ fontWeight: 'bold' }}>Education:   
+                  <span style={{ fontWeight: 'normal', marginLeft: '0.5rem' }}> {user.education || 'Education Not Provided'} </span>
+                </h6>
+                <Button 
+                  variant="link"
+                  onClick={() => handleEdit('education')}
+                >
+                  <FontAwesomeIcon icon={faEdit} /> Edit
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
+          
+          <Card className="profile-info-card mb-4">
+            <Card.Body>
+              <div className="d-flex align-items-center">
+                <img src={Imageskillstest} alt="Skill Assessment" className="img-fluid" style={{ width: '200px', height: 'auto', marginRight: '20px' }} />
+                <div>
+                  <h5 className="card-title">Take a Skill Assessment Test</h5>
+                  <p className="card-text">Click the button below to start a skill assessment test to showcase your skills.</p>
+                  <Button variant="primary" onClick={() => window.open('https://www.coursera.org', '_blank')}>
+                    Take Test
+                  </Button>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+          <Card className="profile-info-card mb-4">
+            <div className="card-body text-center">
+              <h3 className="my-4">The Online Resume Builder You Deserve</h3>
+              <p>Creating a Professional Resume and Cover Letter Has Never Been So Easy</p>
+              <Button variant="primary" onClick={() => window.location.href = 'https://resume.io/resume-templates'}>
+                Get Started for Free
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </div>
+
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit {editField ? editField.charAt(0).toUpperCase() + editField.slice(1) : 'Field'}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group controlId="formEditValue">
+            <Form.Label>{editField ? editField.charAt(0).toUpperCase() + editField.slice(1) : 'Field'}</Form.Label>
+            <Form.Control
+              type="text"
+              value={editValue}
+              onChange={handleEditChange}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowEditModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSaveEdit}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   );
 };
 
-export default ProfilePage;                      
+export default ProfilePage;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaEnvelope, FaBriefcase, FaMapMarkerAlt } from 'react-icons/fa';
-import testImage from '../../assets/user-profile default.png'; 
+import testImage from '../../assets/male-placeholder.jpg'; 
 import './UserList.css'; 
 
 
@@ -31,17 +31,22 @@ const UserList = () => {
     navigate(`/profile/${userId}`);
   };
 
-  const handleSendMessage = async (recipientId) => {
-    try {
-      await axios.post('http://localhost:3020/api/messages', {
-        recipientId,
-        message
-      });
-      setMessage('');
-      setShowMessageForm(false);
-      // Trigger notification update in navbar or handle accordingly
-    } catch (error) {
-      console.error('Error sending message:', error);
+  const handleSendMessage = async () => {
+    if (selectedUser && message.trim()) {
+      try {
+        await axios.post('http://localhost:3020/api/messages', {
+          recipientId: selectedUser.id,
+          message: message.trim(),
+        });
+        setMessage('');
+        setShowMessageForm(false);
+        setSelectedUser(null);
+        // Optionally, trigger a notification update in the navbar or handle accordingly
+      } catch (error) {
+        console.error('Error sending message:', error);
+      }
+    } else {
+      alert('Please enter a message.');
     }
   };
 
@@ -64,12 +69,12 @@ const UserList = () => {
   });
 
   return (
-    <div className="user-list-container">
-      <h2 className="text-center text-white mb-4">Users List</h2>
+    <div className="container mt-4">
+      <h2 className="text-center text-primary mb-4">Users List</h2>
       <div className="mb-4">
         <input
           type="text"
-          className="form-control search-input"
+          className="form-control"
           placeholder="Search by name or job title"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -78,9 +83,9 @@ const UserList = () => {
       <div className="d-flex flex-wrap justify-content-start">
         {filteredUsers.length > 0 ? (
           filteredUsers.map(user => (
-            <div key={user.id} className="card user-card mx-2 my-3">
+            <div key={user.id} className="card user-card mx-2 my-3" style={{ width: '18rem' }}>
               <img
-                 src={user.image ? user.image : testImage}
+                src={user.image ? user.image : testImage}
                 alt={`${user.firstName} ${user.lastName}`}
                 className="card-img-top rounded-circle mx-auto mt-3"
               />
@@ -102,7 +107,7 @@ const UserList = () => {
                   View Profile
                 </button>
                 <button
-                  className="btn btn-outline-secondary mt-2"
+                  className="btn btn-outline-secondary mt-2 ms-2"
                   onClick={() => handleMessageButtonClick(user)}
                 >
                   Send Message
@@ -111,28 +116,28 @@ const UserList = () => {
             </div>
           ))
         ) : (
-          <p className="text-center text-white">No users found.</p>
+          <p className="text-center">No users found.</p>
         )}
       </div>
 
       {showMessageForm && selectedUser && (
-        <div className="message-form">
-          <h4>Send Message to {selectedUser.firstName} {selectedUser.lastName}</h4>
+        <div className="message-form card mt-4 p-3">
+          <h4 className="card-title">Send Message to {selectedUser.firstName} {selectedUser.lastName}</h4>
           <textarea
-            className="form-control"
+            className="form-control mb-3"
             rows="4"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type your message here..."
           ></textarea>
           <button
-            className="btn btn-primary mt-2"
-            onClick={() => handleSendMessage(selectedUser.id)}
+            className="btn btn-primary"
+            onClick={handleSendMessage}
           >
             Send
           </button>
           <button
-            className="btn btn-secondary mt-2 ms-2"
+            className="btn btn-secondary ms-2"
             onClick={() => setShowMessageForm(false)}
           >
             Cancel
