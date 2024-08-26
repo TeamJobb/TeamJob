@@ -1,0 +1,42 @@
+.friend-requests-container {
+    position:fixed; /* Fix the container at the bottom */
+    right: 0;
+    bottom: 0px; /* Move the container up from the bottom edge */
+    width: 250px; /* Adjust width to fit minimized cards */
+    padding: 10px; /* Adjust padding for a more compact layout */
+    z-index: 1000; /* Ensure it is above other elements */
+    background-color: white; /* Optional: Add background color for better visibility */
+    border: 1px solid #ddd; /* Optional: Add border for better definition */
+    box-shadow: 0 0 5px rgba(0,0,0,0.1); /* Optional: Add shadow for better visual effect */
+  }
+  
+  .friend-request-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px; /* Add space between cards */
+    max-width: 100%; /* Ensure the card doesn't exceed container width */
+  }
+  
+  
+  .friend-request-card .card-img-top {
+    width: 80px; /* Minimized image width */
+    height: 80px; /* Minimized image height */
+    object-fit: cover; /* Ensure image fits the card */
+  }
+  
+  .friend-request-card .card-body {
+    padding: 5px; /* Adjust padding for a more compact look */
+    text-align: center; /* Center align text */
+  }
+  
+  .friend-request-card .card-title {
+    font-size: 14px; /* Adjust font size for a smaller card */
+    margin-bottom: 5px; /* Adjust spacing between title and text */
+  }
+  
+  .friend-request-card .btn {
+    font-size: 12px; /* Adjust button font size */
+    padding: 5px 10px; /* Adjust button padding */
+  }
+  

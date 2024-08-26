@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
 
-
 const PostJobForm = () => {
   const [jobDetails, setJobDetails] = useState({
     title: '',

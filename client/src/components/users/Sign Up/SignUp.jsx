@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
-
+import mg from '../../../assets/font.jpg'
+import './signup.css'
 const CreateAccountPage = () => {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -126,7 +127,7 @@ const CreateAccountPage = () => {
                                                             onChange={handleChange}
                                                             required
                                                         />
-                                                        <label className="form-label" htmlFor="firstName">First Name</label>
+                                                        <label className="form-label" htmlFor="firstName"></label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -140,7 +141,7 @@ const CreateAccountPage = () => {
                                                             onChange={handleChange}
                                                             required
                                                         />
-                                                        <label className="form-label" htmlFor="lastName">Last Name</label>
+                                                        <label className="form-label" htmlFor="lastName"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -157,7 +158,7 @@ const CreateAccountPage = () => {
                                                             onChange={handleChange}
                                                             required
                                                         />
-                                                        <label className="form-label" htmlFor="email">Email Address</label>
+                                                        <label className="form-label" htmlFor="email"></label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -171,7 +172,7 @@ const CreateAccountPage = () => {
                                                             onChange={handleChange}
                                                             required
                                                         />
-                                                        <label className="form-label" htmlFor="password">Password</label>
+                                                        <label className="form-label" htmlFor="password"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,7 +188,7 @@ const CreateAccountPage = () => {
                                                             value={formData.phone || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="phone">Phone</label>
+                                                        <label className="form-label" htmlFor="phone"></label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -200,7 +201,7 @@ const CreateAccountPage = () => {
                                                             value={formData.mobile || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="mobile">Mobile</label>
+                                                        <label className="form-label" htmlFor="mobile"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -214,7 +215,7 @@ const CreateAccountPage = () => {
                                                             name="image"
                                                             onChange={handleImageUpload}
                                                         />
-                                                        <label className="form-label" htmlFor="image">Upload Profile Image</label>
+                                                        <label className="form-label" htmlFor="image"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -239,7 +240,7 @@ const CreateAccountPage = () => {
                                                             value={formData.address || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="address">Address</label>
+                                                        <label className="form-label" htmlFor="address"></label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -252,7 +253,7 @@ const CreateAccountPage = () => {
                                                             value={formData.github || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="github">GitHub</label>
+                                                        <label className="form-label" htmlFor="github"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,7 +269,7 @@ const CreateAccountPage = () => {
                                                             value={formData.twitter || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="twitter">Twitter</label>
+                                                        <label className="form-label" htmlFor="twitter"></label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -281,7 +282,7 @@ const CreateAccountPage = () => {
                                                             value={formData.instagram || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="instagram">Instagram</label>
+                                                        <label className="form-label" htmlFor="instagram"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -297,7 +298,7 @@ const CreateAccountPage = () => {
                                                             value={formData.facebook || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="facebook">Facebook</label>
+                                                        <label className="form-label" htmlFor="facebook"></label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -310,7 +311,7 @@ const CreateAccountPage = () => {
                                                             value={formData.job_title || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="job_title">Job Title</label>
+                                                        <label className="form-label" htmlFor="job_title"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -326,7 +327,7 @@ const CreateAccountPage = () => {
                                                             value={formData.location || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="location">Location</label>
+                                                        <label className="form-label" htmlFor="location"></label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -339,7 +340,7 @@ const CreateAccountPage = () => {
                                                             value={formData.website || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="website">Website</label>
+                                                        <label className="form-label" htmlFor="website"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -355,7 +356,7 @@ const CreateAccountPage = () => {
                                                             value={formData.experience || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="experience">Experience</label>
+                                                        <label className="form-label" htmlFor="experience"></label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -368,7 +369,7 @@ const CreateAccountPage = () => {
                                                             value={formData.education || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="education">Education</label>
+                                                        <label className="form-label" htmlFor="education"></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -384,7 +385,7 @@ const CreateAccountPage = () => {
                                                             value={formData.skills || ''}
                                                             onChange={handleChange}
                                                         />
-                                                        <label className="form-label" htmlFor="skills">Skills</label>
+                                                        <label className="form-label" htmlFor="skills"></label>
                                                     </div>
                                                 </div>
                                             </div>

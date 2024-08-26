@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Carousel, Modal, Button, Form, Row, Col, Card, Spinner } from 'react-bootstrap'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faTwitter, faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import 'react-calendar/dist/Calendar.css';
+import "react-calendar/dist/Calendar.css";
+
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';

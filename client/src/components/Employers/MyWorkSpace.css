@@ -1,0 +1,51 @@
+.workspace-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .workspace-card-img {
+    border-radius: 10px 10px 0 0;
+    height: 180px; /* Ajustez la hauteur selon vos besoins */
+    object-fit: cover; /* Assure que l'image couvre le conteneur sans déformer */
+  }
+  
+  .workspace-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+  }
+  
+  .workspace-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .workspace-icon {
+    font-size: 1.5rem;
+    color: #007bff;
+  }
+  .workspace-button {
+    background-color: #01152b;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Ajouter du padding pour rendre le bouton plus large */
+    border-radius: 5px; /* Ajouter un rayon pour les coins arrondis */
+    font-size: 16px; /* Ajuster la taille de la police si nécessaire */
+    cursor: pointer; /* Changer le curseur au survol */
+    transition: background-color 0.3s ease; /* Ajouter une transition pour les changements de couleur */
+    justify-content: center;
+  }
+  
+  .workspace-button:hover {
+    background-color: #060131;
+
+  }
+  
+  .workspace-input {
+    border-radius: 5px 0 0 5px;
+  }
+  
+  .workspace-input + .btn {
+    border-radius: 0 5px 5px 0;
+  }
+  

@@ -2,7 +2,7 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-const sequelize = new Sequelize('job_portal', 'root', 'root', {
+const sequelize = new Sequelize('job_portal', 'root', 'rootroot', {
     host: 'localhost',
     dialect: 'mysql'
 });
