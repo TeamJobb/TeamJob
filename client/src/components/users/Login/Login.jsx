@@ -20,7 +20,7 @@ const LoginPage = ({ loggedIn, setLoggedIn }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3020/api/users/login', formData);
+            const response = await axios.post('http://localhost:3022/api/users/login', formData);
             console.log('API response:', response);
 
             setMessageType('success');

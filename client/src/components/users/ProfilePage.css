@@ -1,5 +1,5 @@
 .profile-background {
-    background-image: url('../../assets/BackroundProfile.png'); /* Update with your image path */
+    background-image: url('../../assets/biography-bg.png'); /* Update with your image path */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -44,7 +44,7 @@
 
 .profile-completeness-card .card-title {
   font-size: 1.25rem;
-  color: #b15539; /* Primary color */
+  color: #f84343; /* Primary color */
   margin-bottom: 16px;
 }
 

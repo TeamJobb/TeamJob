@@ -18,7 +18,7 @@ const ApplyJobPage = () => {
     const fetchJob = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:3020/api/jobs/${jobId}`);
+        const response = await axios.get(`http://localhost:3022/api/jobs/${jobId}`);
         setJob(response.data);
       } catch (error) {
         console.error('Error fetching job details', error);
@@ -44,7 +44,7 @@ const ApplyJobPage = () => {
         jobId,
         ...formData,
       };
-      await axios.post(`http://localhost:3020/api/applications`, applicationData);
+      await axios.post(`http://localhost:3022/api/applications`, applicationData);
       setSuccess(true);
     } catch (error) {
       console.error('Error applying for job', error);

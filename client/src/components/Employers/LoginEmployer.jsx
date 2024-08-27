@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { UserContext } from '../users/UserContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../users/Login/LoginPage.css'; // Import the same CSS file
 import video from '../../assets/video.mp4'; // Assuming you want to keep the video background
 
 function EmployerLogin() {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
+    const [formData, setFormData] = useState({ email: '', password: '' });
     const navigate = useNavigate();
+    const { setUser, setLoggedIn, setRole } = useContext(UserContext); // Use context for login state and role
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,10 +18,13 @@ function EmployerLogin() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3020/api/employers/login', formData);
+            const response = await axios.post('http://localhost:3022/api/employers/login', formData);
             localStorage.setItem('token', response.data.token);
-            alert('Login successful!');
-            navigate('/Home-Employer'); // Navigate to HomePage after login
+            localStorage.setItem('user', JSON.stringify(response.data.user)); // Save user data to localStorage
+            setUser(response.data.user); // Update user state
+            setLoggedIn(true); // Update login state
+            setRole('employer'); // Set user role to employer
+            navigate('/Home-Employer'); // Navigate to the employer homepage
         } catch (error) {
             alert('Login failed. Please try again.');
         }
@@ -30,8 +32,8 @@ function EmployerLogin() {
 
     return (
         <div className="container">
-            <br></br><br></br><br></br><br></br><br></br> <br></br><br></br><br></br>
-            <h1 className="my-4">Welcome Back, Employer! <br></br>Let's Manage Your Jobs</h1>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <h1 className="my-4">Welcome Back, Employer! <br />Let's Manage Your Jobs</h1>
             <div className="login-page">
                 <video src={video} className="login-video" autoPlay loop muted />
                 <div className="forms">

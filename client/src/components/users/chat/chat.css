@@ -1,0 +1,121 @@
+/* Container for the entire chat window */
+.chat-wrapper {
+    position: fixed;
+    right: 20px; /* Space from the right edge */
+    bottom: 20px; /* Space from the bottom edge */
+    width: 360px; /* Slightly increased width for more space */
+    height: 70vh; /* Increased height for a more spacious chat area */
+    background-color: #ffffff; /* Light background for better readability */
+    border-radius: 12px; /* Rounded corners for a modern look */
+    border: 1px solid #dee2e6; /* Light border to define the chat area */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Softer shadow for depth */
+    z-index: 1000;
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Smooth transition for any state changes */
+  }
+  
+  /* Header of the chat window */
+  .chat-header {
+    background-color: #007bff; /* Header background color */
+    color: #ffffff; /* Text color */
+    padding: 16px; /* Increased padding for a spacious header */
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef; /* Bottom border for separation */
+    position: relative; /* For positioning the robot GIF */
+  }
+  
+  /* Chatbot GIF icon */
+  .chat-robot-icon {
+    width: 70px; /* Larger size for better visibility */
+    height: 70px; /* Larger size for better visibility */
+    border-radius: 50%; /* Circular shape */
+    margin-right: 16px; /* Space between the GIF and the header text */
+  }
+  
+  /* Chat messages area */
+  .chat-messages {
+    flex: 1;
+    padding: 12px; /* Padding for message area */
+    overflow-y: auto;
+    background-color: #f8f9fa; /* Slightly darker background for messages */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Gap between messages for better spacing */
+  }
+  
+  /* Individual chat messages */
+  .message {
+    padding: 12px; /* Padding for individual messages */
+    border-radius: 12px; /* Rounded corners for messages */
+    max-width: 80%; /* Ensure messages don't stretch too wide */
+    word-wrap: break-word; /* Wrap long words */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for messages */
+  }
+  
+  /* Sent messages */
+  .message.sent {
+    background-color: #007bff; /* Color for sent messages */
+    color: #ffffff; /* Text color */
+    align-self: flex-end; /* Align messages to the end (right) */
+    border-radius: 12px 12px 0 12px; /* Rounded top-right corners */
+  }
+  
+  /* Received messages */
+  .message.received {
+    background-color: #e9ecef; /* Color for received messages */
+    color: #000000; /* Text color */
+    align-self: flex-start; /* Align messages to the start (left) */
+    border-radius: 12px 12px 12px 0; /* Rounded top-left corners */
+  }
+  
+  /* Input area for sending messages */
+  .chat-input {
+    display: flex;
+    padding: 12px; /* Padding for input area */
+    border-top: 1px solid #e9ecef; /* Top border for separation */
+    background-color: #ffffff; /* White background for input area */
+    align-items: center;
+  }
+  
+  /* Input field */
+  .chat-input input {
+    flex: 1;
+    padding: 12px; /* Padding for input field */
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 20px; /* Rounded corners */
+    font-size: 1rem; /* Font size for readability */
+  }
+  
+  /* Send button */
+  .chat-input button {
+    margin-left: 10px; /* Space between input field and button */
+    background-color: #007bff; /* Button background color */
+    color: #ffffff; /* Button text color */
+    border: none;
+    padding: 12px 20px; /* Padding for button */
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  /* Send button hover effect */
+  .chat-input button:hover {
+    background-color: #0056b3; /* Darker color on hover */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .chat-wrapper {
+      width: 90vw; /* Full width on smaller screens */
+      height: 80vh; /* More height for better usage on smaller screens */
+    }
+  
+    .chat-robot-icon {
+      width: 50px; /* Smaller size on smaller screens */
+      height: 50px; /* Smaller size on smaller screens */
+    }
+  }
+  

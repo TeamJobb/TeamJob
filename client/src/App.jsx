@@ -1,7 +1,7 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react'; 
+import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { UserProvider } from './components/users/UserContext.jsx'; 
+import { UserProvider, UserContext } from './components/users/UserContext.jsx'; 
 import Navbar from './components/Navbar.jsx';
 import Hero from './Pages/Home/Hero.jsx';
 import Error from "./Pages/Error/Error.jsx";
@@ -21,15 +21,51 @@ import HomePageEmployer from './components/Employers/employerHome.jsx';
 import CVSearchPage from './components/Employers/CVSearchPage.jsx';
 import PostJobForm from './components/Employers/PostJobPage.jsx';
 import UserApplicationsPage from './components/users/ApplicationPage.jsx';
-import Messages from './components/users/SendMessageForm.jsx';
-import Contact from './Pages/Contact/Contact.jsx';
+import Chat from '../../client/src/components/users/chat/ChatContainer.jsx';
+import Contact from '../../client/src/Pages/Contact/Contact.jsx';
+import socket from '../../client/src/utils/socket.js';
+import MessagesPage from '../../client/src/components/users/chat/messageschat.jsx';
+import NavbarEmployer from './components/Employers/NavBarEmployer.jsx'; // Import NavbarEmployer
 
-function AppContent() {
+function AppContent({ socket }) {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isEmployer, setIsEmployer] = useState(false);
+  const [role, setRole] = useState(""); // Track the role: user or employer
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const { user: currentUser } = useContext(UserContext);
+  const location = useLocation();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get("http://localhost:3022/api/users");
+        setUsers(res.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleSelectUser = (user) => {
+    setSelectedUser(user);
+  };
+
+  const handleLogin = (role) => {
+    setLoggedIn(true);
+    setRole(role);
+  };
+
   return (
     <>
-      {loggedIn ? <Header /> : <Navbar />}
+      {/* Conditionally render Header or NavbarEmployer based on the role */}
+      {loggedIn ? (
+        role === "employer" ?  <NavbarEmployer /> :  <Header />
+      ) : (
+        <Navbar />
+       
+      )}
 
       <div className="content">
         <Routes>
@@ -37,34 +73,44 @@ function AppContent() {
           <Route path="/Contact-Us" element={<Contact />} />
           <Route path="/error" element={<Error />} />
           <Route path="/sign-up" element={<CreateAccountPage />} />
-          <Route path="/login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
+          <Route 
+            path="/login" 
+            element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} handleLogin={() => handleLogin("user")} />} 
+          />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/company/:id" element={<CompanyDetails />} />
           <Route path="/job/:id" element={<JobDetails />} />
-          <Route path="/blog" element={<BlogCard />} /> 
-          <Route path="/user-list" element={<UserList />} />
-          <Route path="/sign-up-Employer" element={<EmployerRegister />} />
-          <Route path="/login-Employer" element={<EmployerLogin />} />
+          <Route path="/apply-job/:jobId" element={<ApplyJobPage />} />
+          <Route path="/blog" element={<BlogCard />} />
+          <Route path="/employer-register" element={<EmployerRegister />} />
+          <Route 
+            path="/login-Employer" 
+            element={<EmployerLogin   handleLogin={() => handleLogin("employer")} />} 
+          />
           <Route path="/Home-Employer" element={<HomePageEmployer />} />
-          <Route path="/CV-Search" element={<CVSearchPage />} />
-          <Route path="/Post-Job" element={<PostJobForm />} />
-          <Route path="/apply/:jobId" element={<ApplyJobPage />} />
-            <Route path="/user/:userId/applications" element={<UserApplicationsPage />} />
-            <Route path="/messages" element={<Messages />} />
+          <Route path="/cv-search" element={<CVSearchPage />} />
+          <Route path="/post-job" element={<PostJobForm />} />
+          <Route path="/user/:userId/applications" element={<UserApplicationsPage />} />
+          <Route path="/user-list" element={<UserList users={users} selectUser={handleSelectUser} />} />
+          <Route path="/chat" element={<MessagesPage />} />
         </Routes>
+
+        {/* Conditional rendering of the Chat component */}
+        {loggedIn && location.pathname === '/user-list' && selectedUser && (
+          <div className="chat-container">
+            <Chat currentUser={currentUser} selectedUser={selectedUser} />
+          </div>
+        )}
       </div>
     </>
   );
 }
 
-
 function App() {
   return (
     <Router>
       <UserProvider>
-        <ErrorBoundary>
-          <AppContent />
-        </ErrorBoundary>
+        <AppContent socket={socket} />
       </UserProvider>
     </Router>
   );

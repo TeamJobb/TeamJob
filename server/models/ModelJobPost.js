@@ -8,15 +8,15 @@ const Job = sequelize.define('Job', {
   },
   company: {
     type: DataTypes.STRING,
-   
+    allowNull: false,
   },
   salaryRange: {
     type: DataTypes.STRING,
-    
+    allowNull: false,
   },
   vacancies: {
     type: DataTypes.INTEGER,
-  
+    allowNull: false,
   },
   employmentType: {
     type: DataTypes.STRING,

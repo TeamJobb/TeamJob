@@ -85,7 +85,7 @@ const CreateAccountPage = () => {
         }
 
         try {
-            await axios.post('http://localhost:3020/api/users/register', formData);
+            await axios.post('http://localhost:3022/api/users/register', formData);
             setMessageType('success');
             setMessage('Account created successfully! Redirecting to login...');
             setTimeout(() => {

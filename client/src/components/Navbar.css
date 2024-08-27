@@ -49,3 +49,10 @@
   display: flex;
   align-items: center;
 }
+.custom-navbar {
+  padding-left: 100; /* Ensure no padding on the left */
+}
+
+.custom-navbar .navbar-brand {
+  margin-left: 100; /* Align the brand further left */
+}

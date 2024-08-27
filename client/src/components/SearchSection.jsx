@@ -36,7 +36,7 @@ const SearchSection = ({ onSearch }) => {
         </Carousel.Item>
       </Carousel>
 
-      {/* Caption and Search bar container */}
+     
       <div
         className="caption-search-container"
         style={{
@@ -49,10 +49,10 @@ const SearchSection = ({ onSearch }) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          textAlign: 'center', // Ensure the text is centered
+          textAlign: 'center', 
         }}
       >
-        {/* Caption */}
+        
         <div className="caption" style={{ marginBottom: '20px' }}>
           <h1 className="fw-bold text-white" style={{ fontSize: '2.5rem' }}>Find the perfect profession for you</h1>
         </div>

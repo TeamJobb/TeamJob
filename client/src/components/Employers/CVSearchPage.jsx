@@ -23,7 +23,7 @@ const CVSearchPage = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:3020/api/users');
+        const response = await axios.get('http://localhost:3022/api/users');
         setUsers(response.data);
         setFilteredUsers(response.data);
       } catch (error) {
@@ -42,7 +42,7 @@ const CVSearchPage = () => {
       setTextIndex(prevIndex => (prevIndex + 1) % texts.length);
     }, 3000); // Change text every 3 seconds
 
-    return () => clearInterval(interval); // Clear interval on component unmount
+    return () => clearInterval(interval); 
   }, []);
 
   const handleSearchChange = (e) => {

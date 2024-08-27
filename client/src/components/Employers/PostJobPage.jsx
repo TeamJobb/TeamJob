@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Form, Button, Row, Col, Card } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
+
 
 const PostJobForm = () => {
   const [jobDetails, setJobDetails] = useState({
@@ -54,7 +55,7 @@ const PostJobForm = () => {
         requirements: jobDetails.requirements.join(', ')
       };
 
-      const response = await axios.post('http://localhost:3020/api/jobs', formattedJobDetails);
+      const response = await axios.post('http://localhost:3022/api/jobs', formattedJobDetails);
       if (response.status === 201) {
         alert('Your job post was successfully added');
         navigate('/MyWorkSpace');

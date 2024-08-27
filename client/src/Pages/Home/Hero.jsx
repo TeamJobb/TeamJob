@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Banner from '../../components/Banner';
-import SearchSection from '../../components/SearchSection'; 
-import MapComponent from '../../components/MapComponent'; 
+import Banner from '../../components/Banner.jsx';
+import SearchSection from '../../components/SearchSection.jsx'; 
+import MapComponent from '../../components/MapComponent.jsx'; 
 import { Modal, Button, Spinner, ListGroup, Pagination, Dropdown, FormControl ,Form} from 'react-bootstrap';
 import { FaBriefcase, FaMapMarkerAlt, FaDollarSign, FaIndustry, FaClipboardList, FaBook, FaUser, FaMapPin } from 'react-icons/fa';
-
 
 
 const Home = () => {
@@ -32,7 +31,7 @@ const Home = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get('http://localhost:3020/api/jobs');
+        const response = await axios.get('http://localhost:3022/api/jobs');
         setJobs(response.data);
         setFilteredJobs(response.data);
       } catch (error) {
@@ -49,7 +48,7 @@ const Home = () => {
   const handleJobClick = async (jobId) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3020/api/jobs/${jobId}`);
+      const response = await axios.get(`http://localhost:3022/api/jobs/${jobId}`);
       setSelectedJob(response.data);
       setShowModal(true);
     } catch (error) {
@@ -65,7 +64,7 @@ const Home = () => {
   };
 
   const handleApplyClick = (jobId) => {
-    navigate(`/apply/${jobId}`);
+    navigate(`/apply-job/${jobId}`);
   };
 
   // Handle filter by selected locations

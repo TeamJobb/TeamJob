@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css'; // Ensure FontAwesome is included
+import '@fortawesome/fontawesome-free/css/all.min.css'; 
 
 const NavbarEmployer = () => {
   return (

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Carousel, Modal, Button, Form, Row, Col, Card, Spinner } from 'react-bootstrap'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTwitter, faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import "react-calendar/dist/Calendar.css";
-
+import 'react-calendar/dist/Calendar.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -30,7 +29,7 @@ const ProfilePage = () => {
     const fetchUserProfile = async () => {
       if (!id) return;
       try {
-        const response = await axios.get(`http://localhost:3020/api/users/${id}`);
+        const response = await axios.get(`http://localhost:3022/api/users/${id}`);
         setUser(response.data);
       } catch (error) {
         console.error('Error fetching user profile:', error);
@@ -68,7 +67,7 @@ const ProfilePage = () => {
     datasets: [
       {
         data: [profileCompletion, 100 - profileCompletion],
-        backgroundColor: ['#82f39d', '#b15539'],
+        backgroundColor: ['#f84343', '#64f55f'],
         borderWidth: 1,
       },
     ],
@@ -77,7 +76,7 @@ const ProfilePage = () => {
   const handleSaveEdit = async () => {
     if (editField && user) {
       try {
-        await axios.put(`http://localhost:3020/api/users/${id}`, {
+        await axios.put(`http://localhost:3022/api/users/${id}`, {
           [editField]: editValue
         });
         setUser({ ...user, [editField]: editValue });

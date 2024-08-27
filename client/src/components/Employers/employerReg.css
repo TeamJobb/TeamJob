@@ -1,6 +1,6 @@
 /* Apply the background image */
 .fiche-center {
-    background-image: url('../../assets/70.jpg'); /* Path to your image */
+    background-image: url('../../assets//70.jpg'); /* Path to your image */
     background-size: cover; /* Cover the entire section */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Don't repeat the image */

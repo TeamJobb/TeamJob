@@ -3,14 +3,20 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './Navbar.css'; 
+import logo from '../../src/assets/Joblogo1.png';
 
 const NavBar = () => {
     return (
         <Navbar bg="light" expand="lg" className="custom-navbar">
             <Container>
-            <Navbar.Brand as={Link} to="/" style={{color:'blue'}}>
-     JobSearch
- </Navbar.Brand>
+            <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+                    <img 
+                        src={logo} 
+                        alt="Logo" 
+                        style={{ width: '150px', marginRight: '100px' }} 
+                    />
+                    <span style={{ color: 'blue' }}>JobSearch</span>
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
@@ -30,7 +36,7 @@ const NavBar = () => {
                             <NavDropdown.Item as={Link} to="/login-Employer">
                                 <i className="fas fa-sign-in-alt"></i> Log In
                             </NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/sign-up-Employer">
+                            <NavDropdown.Item as={Link} to="/employer-register">
                                 <i className="fas fa-user-plus"></i> Sign Up
                             </NavDropdown.Item>
                         </NavDropdown>

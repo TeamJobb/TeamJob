@@ -1,12 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const messageController = require('../controllers/messageController.js'); // Vérifiez le chemin
 
-// Définition des routes pour les messages
-router.get('/', messageController.getAllMessages);
-router.get('/:id', messageController.getMessageById);
-router.post('/', messageController.createMessage);
-router.put('/:id', messageController.updateMessage);
-router.delete('/:id', messageController.deleteMessage);
+
+const express = require("express");
+const router = express.Router();
+const { getMessages, addMessage } = require("../controllers/messageController.js");
+
+
+router.post("/getmsg", getMessages);
+
+
+router.post("/addmsg", addMessage);
 
 module.exports = router;

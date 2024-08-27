@@ -14,14 +14,14 @@ const UserApplicationsPage = () => {
   const [statuses, setStatuses] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:3020/api/applications/user/${userId}`)
+    axios.get(`http://localhost:3022/api/applications/user/${userId}`)
       .then(response => {
         const applicationsData = response.data;
         setApplications(applicationsData);
 
         const jobIds = applicationsData.map(app => app.jobId);
         Promise.all(jobIds.map(jobId =>
-          axios.get(`http://localhost:3020/api/jobs/${jobId}`)
+          axios.get(`http://localhost:3022/api/jobs/${jobId}`)
         ))
         .then(responses => {
           const jobTitlesData = {};
@@ -38,7 +38,7 @@ const UserApplicationsPage = () => {
 
   const handleShowModal = (jobId) => {
     setLoading(true);
-    axios.get(`http://localhost:3020/api/jobs/${jobId}`)
+    axios.get(`http://localhost:3022/api/jobs/${jobId}`)
       .then(response => {
         setSelectedJob(response.data);
         setShowModal(true);
@@ -61,7 +61,7 @@ const UserApplicationsPage = () => {
       [applicationId]: status
     }));
 
-    axios.patch(`http://localhost:3020/api/applications/${applicationId}`, { status })
+    axios.patch(`http://localhost:3022/api/applications/${applicationId}`, { status })
       .then(response => {
         console.log('Status updated successfully');
       })
