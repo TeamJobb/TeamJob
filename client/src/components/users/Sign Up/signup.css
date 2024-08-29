@@ -1,0 +1,61 @@
+/* Apply the background image */
+section.text-center {
+    background-image: url('../../../assets/70.jpg'); /* Path to your image */
+    background-size: cover; /* Cover the entire section */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Don't repeat the image */
+    position: relative; /* Ensure the section's content is positioned relative to this background */
+    padding: 100px 0; /* Optional: add padding to the section for better layout */
+    min-height: 100vh; /* Ensure it covers the entire height of the viewport */
+}
+
+/* Overlay (optional for readability) */
+section.text-center::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+    z-index: 1; /* Place behind form content */
+}
+
+/* Style the card to ensure it appears above the background */
+section.text-center .card {
+    position: relative;
+    z-index: 5; /* Ensure it's above the background image and overlay */
+    background-color: transparent; /* Semi-transparent white background */
+    border-radius: 10px; /* Optional: rounded corners */
+    padding: 20px;
+    transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease; /* Smooth transitions for scaling, background, and border */
+    border: 2px solid transparent; /* No border initially */
+    background-position: center;
+}
+
+/* On hover, the card will expand, background will become more opaque, and the border will appear black */
+section.text-center .card:hover {
+    transform: scale(1.05); /* Increase the size by 5% on hover */
+    background-color:  rgba(255, 255, 255, 0.093); /* More opaque background on hover */
+    border: 2px solid black; /* Black border on hover */
+}
+
+
+
+/* Form control styling (optional adjustments for better visibility) */
+section.text-center .form-control {
+    background-color: white; /* Make inputs slightly transparent */
+    color: rgb(45, 31, 14); /* Text color inside inputs */
+    border: none; /* Remove default borders */
+    border-bottom: 2px solid white; /* Add a custom bottom border */
+    margin-bottom: 30px; /* Spacing between input fields */
+}
+
+/* Button styling */
+section.text-center .btn {
+    background-color: #007bff; /* Primary button color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    
+}

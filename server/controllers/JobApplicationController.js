@@ -1,44 +1,37 @@
-const JobApplication = require('../models/JobApplicationModel.js');
-const path = require('path');
-const fs = require('fs');
+const Application = require('../models/JobApplicationModel.js');
 
-// Fonction pour postuler à un emploi
-const applyForJob = async (req, res) => {
-  const { jobId } = req.params;
-  const { userId, coverLetter } = req.body;
-  const cvFile = req.file ? req.file.filename : null;
+// Créer une nouvelle candidature
+exports.createApplication = async (req, res) => {
+  const { userId, jobId, status } = req.body;
 
   try {
-    const application = await JobApplication.create({
-      jobId,
-      userId,
-      coverLetter,
-      cvFile,
-    });
+    const application = await Application.create({ userId, jobId, status });
     res.status(201).json(application);
   } catch (error) {
-    console.error('Error applying for job:', error);
-    res.status(500).json({ message: 'Error applying for job' });
+    res.status(500).json({ message: 'Failed to create application', error });
   }
 };
 
-// Fonction pour obtenir toutes les candidatures d'un utilisateur par ID
-const getApplicationsByUserId = async (req, res) => {
+// Obtenir toutes les candidatures d'un utilisateur
+exports.getUserApplications = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const applications = await JobApplication.findAll({ where: { userId } });
-    if (applications.length === 0) {
-      return res.status(404).json({ message: 'No applications found for this user' });
-    }
+    const applications = await Application.findAll({ where: { userId } });
     res.status(200).json(applications);
   } catch (error) {
-    console.error('Error retrieving applications by userId:', error);
-    res.status(500).json({ message: 'Error retrieving applications' });
+    res.status(500).json({ message: 'Failed to retrieve applications', error });
   }
 };
 
-module.exports = {
-  applyForJob,
-  getApplicationsByUserId,
+// Obtenir toutes les candidatures pour un emploi
+exports.getJobApplications = async (req, res) => {
+  const { jobId } = req.params;
+
+  try {
+    const applications = await Application.findAll({ where: { jobId } });
+    res.status(200).json(applications);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to retrieve applications', error });
+  }
 };

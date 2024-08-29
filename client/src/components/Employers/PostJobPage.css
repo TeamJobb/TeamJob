@@ -1,0 +1,7 @@
+.post-job-form-container {
+    background-image: url('../../assets/work.png');
+    background-size: cover; /* Ajuste la taille de l'image de fond */
+    background-position: center; /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    padding: 20px; /* Ajoute un peu de padding si nécessaire */
+  }

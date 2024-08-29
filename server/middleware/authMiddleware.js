@@ -1,26 +1,52 @@
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
-// Middleware d'authentification
-const auth = (req, res, next) => {
-    // Récupérer le token depuis les en-têtes
-    const token = req.headers['authorization']?.split(' ')[1];
-
-    // Vérifier si le token est présent
-    if (!token) {
-        return res.status(401).json({ error: 'No token provided' });
-    }
-
-    // Vérifier et décoder le token
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(403).json({ error: 'Invalid token' });
-        }
-
-        // Ajouter les informations de l'utilisateur à la requête
-        req.user = decoded;
-        next();
-    });
+// Logger Middleware
+const loggerMiddleware = (req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
 };
 
-module.exports = auth;
+// Authentication Middleware
+const authenticate = (req, res, next) => {
+    const token = req.headers['authorization'];
+    if (token) {
+        // Verify token logic here (e.g., JWT verification)
+        next(); // If token is valid
+    } else {
+        res.status(401).json({ message: 'Unauthorized' });
+    }
+};
+
+// Error Handling Middleware
+const errorHandler = (err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Something went wrong!' });
+};
+
+// CORS Middleware
+const setupCors = (app) => {
+    app.use(cors()); // This will enable CORS for all routes and origins
+};
+
+// Body-Parser Middleware
+const setupBodyParser = (app) => {
+    app.use(bodyParser.json()); // For parsing application/json
+    app.use(bodyParser.urlencoded({ extended: true })); 
+};
+
+
+const addTimestamp = (req, res, next) => {
+    req.timestamp = new Date().toISOString();
+    next();
+};
+
+
+module.exports = {
+    loggerMiddleware,
+    authenticate,
+    errorHandler,
+    setupCors,
+    setupBodyParser,
+    addTimestamp
+};

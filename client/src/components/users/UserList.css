@@ -1,4 +1,16 @@
 /* Container styling */
+
+.chat-form-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
 .user-list-container {
   background: url('../../assets/biography-bg.png');
   padding: 20px;
@@ -63,4 +75,52 @@
   .user-card {
     width: 100%;
   }
+}
+
+/* UserList.css */
+
+.container {
+  max-width: 1200px;
+}
+
+.search-input {
+  border-radius: 25px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.user-card {
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.user-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.user-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.icon-color {
+  color: #007bff;
+}
+
+.btn-outline-primary {
+  border-color: #007bff;
+  color: #007bff;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-block {
+  width: 100%;
 }

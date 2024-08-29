@@ -9,7 +9,7 @@ exports.registerUser = async (req, res) => {
     const {
         firstName, lastName, email, password, phone, mobile, address,
         github, twitter, instagram, facebook, job_title, location, website,
-        experience, education, skills, image // Ajout de l'image
+        experience, education, skills, image 
     } = req.body;
 
     try {

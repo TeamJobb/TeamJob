@@ -1,0 +1,131 @@
+.forms {
+    flex: 1;
+    background: transparent;
+    padding: 40px;
+    height: 500px;
+    width: 40%;
+    margin-left: 350px;
+    margin-top: 150px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajoute une transition pour l'agrandissement et l'ombre */
+}
+
+.forms:hover {
+    transform: scale(1.05); /* Agrandit la forme à 105% de sa taille d'origine */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Augmente l'ombre pour plus de profondeur */
+}
+
+  
+  .form-content .login-form,
+  .form-content .signup-form {
+    width: 50%;
+    height: 70px;
+  }
+  .form-content .login-form,
+.form-content .signup-form {
+  width: 100%;
+  color: bisque;
+}
+.forms .form-content .title {
+    font-size: 30px;
+    font-weight: 50px;
+    color:antiquewhite;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .forms .form-content .input-boxes {
+    margin-top: 30px;
+  }
+  
+  .forms .form-content .input-box {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    position: relative;
+  }
+  .form-content .input-box input {
+    width: 100%;
+    padding: 0 30px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  .form-content .input-box input:focus,
+.form-content .input-box input:valid {
+  border-color: #e8b52a;
+}
+
+.form-content .input-box i {
+  position: absolute;
+  left: 5px;
+  color:#e8b52a;
+  font-size: 17px;
+}
+
+.forms .form-content .butt input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 6px;
+  background: #594306;
+  color:white;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.forms .form-content .butt input:hover {
+  background: #275640;
+}
+.forms .form-content .text {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
+    color: rgb(25, 25, 117);
+  }
+  .forms .form-content .text a {
+    color:  rgb(25, 25, 117);
+    text-decoration: none;
+    font-size: 20px;
+  }
+  
+  .forms .form-content .text.sign-up-text {
+    margin-top: 25px;
+  }
+  @media (max-width: 730px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .container .cover {
+      margin-bottom: 20px;
+    }
+  
+    .container .forms {
+      width: 100%;
+    }
+  }
+  .login-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1400px;
+    object-fit: cover; /* Pour s'assurer que la vidéo couvre tout l'arrière-plan */
+    z-index: -1; /* Pour que la vidéo soit derrière le formulaire */
+  }
+  .h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    
+}
+.my-4{
+    color: rgb(238, 230, 219);
+    margin-top: 100px;
+    text-align: center;
+    font-size: 45px;
+}

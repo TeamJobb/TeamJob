@@ -1,0 +1,44 @@
+/* src/pages/ApplyForm.css */
+.form-control-custom {
+  border-radius: 0.25rem;
+}
+
+.btn-custom {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-custom:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.input-group-text {
+  border-radius: 0.25rem;
+}
+
+.alert-success,
+.alert-danger {
+  border-radius: 0.25rem;
+}
+/* ApplyForm.css */
+
+/* Augmente la largeur du formulaire */
+.form-container {
+  max-width: 800px; /* Ajustez cette valeur selon vos besoins */
+}
+
+/* Réduit la taille du texte dans le formulaire */
+.form-container .form-label,
+.form-container .form-control {
+  font-size: 0.875rem; /* Ajustez cette valeur pour réduire la taille du texte */
+}
+
+.form-container .input-group-text {
+  font-size: 0.75rem; /* Ajustez cette valeur pour les icônes */
+}
+
+/* Réduit la taille du texte du bouton */
+.form-container .btn {
+  font-size: 0.875rem; /* Ajustez cette valeur pour le bouton */
+}

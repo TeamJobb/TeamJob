@@ -6,6 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'; // Assurez-vous que le chemin
 import './CVSearchPage.css';
 import welcomeImage from '../../assets/cvsearch-img.png'; // Assurez-vous que le chemin est correct
 import footerImage from '../../assets/welcome.jpg'; 
+import contactIcon from '../../assets/Icon-feather-folder-minus@2x2.png'; 
 
 const CVSearchPage = () => {
   const [users, setUsers] = useState([]);
@@ -19,11 +20,12 @@ const CVSearchPage = () => {
     skills: ''
   });
   const [textIndex, setTextIndex] = useState(0);
+  const [showContactInfo, setShowContactInfo] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:3020/api/users');
+        const response = await axios.get('http://localhost:3022/api/users');
         setUsers(response.data);
         setFilteredUsers(response.data);
       } catch (error) {
@@ -40,17 +42,17 @@ const CVSearchPage = () => {
     const texts = ['Find ', 'Contact ', 'Hire '];
     const interval = setInterval(() => {
       setTextIndex(prevIndex => (prevIndex + 1) % texts.length);
-    }, 3000); // Change text every 3 seconds
+    }, 3000);
 
-    return () => clearInterval(interval); // Clear interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   const handleSearchChange = (e) => {
     const { name, value } = e.target;
-    setSearchCriteria({
-      ...searchCriteria,
+    setSearchCriteria(prev => ({
+      ...prev,
       [name]: value
-    });
+    }));
   };
 
   const applyFilters = () => {
@@ -63,7 +65,9 @@ const CVSearchPage = () => {
     }
 
     if (searchCriteria.location) {
-      filtered = filtered.filter(user => user.location.toLowerCase().includes(searchCriteria.location.toLowerCase()));
+      filtered = filtered.filter(user =>
+        user.location.toLowerCase().includes(searchCriteria.location.toLowerCase())
+      );
     }
 
     if (searchCriteria.experience) {
@@ -77,7 +81,9 @@ const CVSearchPage = () => {
     }
 
     if (searchCriteria.jobTitle) {
-      filtered = filtered.filter(user => user.job_title.toLowerCase().includes(searchCriteria.jobTitle.toLowerCase()));
+      filtered = filtered.filter(user =>
+        user.job_title.toLowerCase().includes(searchCriteria.jobTitle.toLowerCase())
+      );
     }
 
     if (searchCriteria.skills) {
@@ -99,27 +105,32 @@ const CVSearchPage = () => {
 
   return (
     <Container fluid className="cv-search-container">
-      {/* Section with text and image */}
-      <Row className="welcome-section mb-4">
-        <Col md={6}>
-          <h1>Welcome to CV Search</h1>
-          <row>'       </row>
-          <p>Struggling to find the right candidate for your role? Search our database of over 52 million job seekers and connect with your next top hire.</p>
-        </Col>
-        
-        <Col md={6} className="d-flex align-items-center">
-          <img src={welcomeImage} alt="CV Search" className="welcome-image" />
-        </Col>
-      </Row>
+      {/* Welcome Section */}
+      <Card className="welcome-section mb-4">
+        <Row className="align-items-center">
+          <Col md={6}>
+            <h1 className="align-items-center">Welcome to CV Search</h1>
+            <p className="align-items-center">
+              Struggling to find the right candidate for your role? Search our database of over 52 million job seekers and connect with your next top hire.
+            </p>
+            
+          </Col>
+          <Col md={6} className="d-flex justify-content-center">
+            <img src={welcomeImage} alt="CV Search" className="welcome-image" />
+          </Col>
+        </Row>
+      </Card>
 
+      {/* Main Content */}
       <Row>
         <Col md={3} className="search-column">
-          <Card className="search-cardcv mb-4">
+          <Card className="search-card mb-4">
             <Card.Body>
-              <h4>
+              <h4 className="search-title">
                 <i className="bi bi-search"></i> {['Find Your Ideal Candidates', 'Contact Your Ideal Candidates', 'Hire Your Ideal Candidates'][textIndex]}
               </h4>
               <Form>
+                {/* Form Fields */}
                 <Form.Group controlId="searchName">
                   <Form.Label><i className="bi bi-person"></i> Name</Form.Label>
                   <Form.Control
@@ -149,10 +160,10 @@ const CVSearchPage = () => {
                     onChange={handleSearchChange}
                   >
                     <option value="">Select Experience</option>
-                    <option value="0"> No Experience</option>
-                    <option value="1"> 1 Year</option>
-                    <option value="2">2 Years</option>
-                    <option value="> 2 ">More than 2 Years</option>
+                    <option value="noExperience">No Experience</option>
+                    <option value="1Year">1 Year</option>
+                    <option value="2Years">2 Years</option>
+                    <option value="moreThan2Years">More than 2 Years</option>
                   </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="searchJobTitle">
@@ -175,16 +186,15 @@ const CVSearchPage = () => {
                     onChange={handleSearchChange}
                   />
                 </Form.Group>
-                <Row>'                                           </Row>
-                <Button variant="primary" onClick={applyFilters}>
+                <Button variant="primary" className="apply-filters-btn" onClick={applyFilters}>
                   <i className="bi bi-filter"></i> Apply Filters
                 </Button>
               </Form>
             </Card.Body>
           </Card>
-          <Card.Footer className="text-center">
-    <img src={footerImage} alt="Footer" className="footer-image" />
-  </Card.Footer>
+          <Card.Footer className="text-center footer-image-container">
+            <img src={footerImage} alt="Footer" className="footer-image" />
+          </Card.Footer>
         </Col>
         <Col md={9} className="results-column">
           <Row className="justify-content-center">
@@ -199,38 +209,58 @@ const CVSearchPage = () => {
                           <h2 className="resume-name">{user.firstName} {user.lastName}</h2>
                           <p className="resume-job-title">{user.job_title}</p>
                           <p className="resume-location">{user.location}</p>
+
+                         
+                          {/* Icon to toggle contact info */}
+                          <img
+                            src={contactIcon}
+                            alt="Contact"
+                            onClick={() => setShowContactInfo(!showContactInfo)}
+                            style={{ cursor: 'pointer' }}
+                            className="contact-icon"
+                          />
+
+                          {/* Conditionally render contact info */}
+                          {showContactInfo && (
+                            <div className="contact-info">
+                              <p>Email: {user.email}</p>
+                              <p>Phone: {user.phone}</p>
+                            </div>
+                          )}
                         </div>
                       </Col>
                       <Col md={8} className="resume-right-column">
-                        <div className="resume-content">
-                          <h4 className="resume-section-title">Skills</h4>
-                          <div className="resume-section-divider"></div>
-                          <ul>
-                            {Array.isArray(user.skills) && user.skills.length > 0 ? user.skills.map((skill, index) => (
-                              <li key={index}>{skill}</li>
-                            )) : <li>{user.skills}</li>}
-                          </ul>
-                          <h4 className="resume-section-title">Experience</h4>
-                          <div className="resume-section-divider"></div>
-                          <ul>
-                            {Array.isArray(user.experience) && user.experience.length > 0 ? user.experience.map((exp, index) => (
-                              <li key={index}>
-                                <strong>{exp.jobTitle}</strong> at {exp.company} ({exp.year})
-                              </li>
-                            )) : <li>{user.experience}</li>}
-                          </ul>
-                          <h4 className="resume-section-title">Education</h4>
-                          <div className="resume-section-divider"></div>
-                          <ul>
-                            {Array.isArray(user.education) && user.education.length > 0 ? user.education.map((edu, index) => (
-                              <li key={index}>
-                                <strong>{edu.degree}</strong> from {edu.institution} ({edu.year})
-                              </li>
-                            )) : <li>{user.education}</li>}
-                          </ul>
-                        </div>
-                      </Col>
-                    </Row>
+  <div className="resume-content">
+    <h4 className="resume-section-title">Skills</h4>
+    <div className="resume-section-divider"></div>
+    <ul className="resume-list">
+      {Array.isArray(user.skills) && user.skills.length > 0 ? user.skills.map((skill, index) => (
+        <li key={index}>{skill}</li>
+      )) : <li>{user.skills}</li>}
+    </ul>
+    
+    <h4 className="resume-section-title">Experience</h4>
+    <div className="resume-section-divider"></div>
+    <ul className="resume-list">
+      {Array.isArray(user.experience) && user.experience.length > 0 ? user.experience.map((exp, index) => (
+        <li key={index}>
+          <strong>{exp.role} - {exp.company}</strong> ({exp.year} years)
+        </li>
+      )) : <li>{user.experience}</li>}
+    </ul>
+
+    <h4 className="resume-section-title">Education</h4>
+    <div className="resume-section-divider"></div>
+    <ul className="resume-list">
+      {Array.isArray(user.education) && user.education.length > 0 ? user.education.map((edu, index) => (
+        <li key={index}>
+          <strong>{edu.degree} - {edu.institution}</strong>
+        </li>
+      )) : <li>{user.education}</li>}
+    </ul>
+  </div>
+</Col>
+  </Row>
                   </Card.Body>
                 </Card>
               </Col>
@@ -238,7 +268,6 @@ const CVSearchPage = () => {
           </Row>
         </Col>
       </Row>
-
     </Container>
   );
 };

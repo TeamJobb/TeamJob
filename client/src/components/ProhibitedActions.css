@@ -1,0 +1,38 @@
+.prohibited-actions .image-container {
+    position: relative;
+    text-align: left;
+    width: 100%;
+}
+
+.prohibited-actions .prohibited-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.prohibited-actions .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    color: #000000;
+    background-color: rgba(255, 255, 255, 0.7); /* Slight white background to enhance readability */
+    padding: 40px;
+    max-width: 40%; /* Adjust width based on the white space in the image */
+    font-size: 1.5rem;
+}
+
+.prohibited-actions ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.prohibited-actions li {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+.Actions{
+    color: rgb(241, 44, 44);
+    size: 50px;
+
+}

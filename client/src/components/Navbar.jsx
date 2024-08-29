@@ -2,49 +2,52 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import '@fortawesome/fontawesome-free/css/all.css';
-import './Navbar.css';
-import logo from '../assets/Joblogo.jpg'; // Update this path to match your logo's location
+import './Navbar.css'; 
+import logo from '../../src/assets/logo.png';
 
 const NavBar = () => {
     return (
-        <>
-            <div className='topPage'>
-                <h4>Welcome to Job Portal</h4>
-            </div>
-            <Navbar bg="light" expand="lg" className="custom-navbar">
-                <Container>
-                    <Navbar.Brand as={Link} to="/">
-                        <img
-                            src={logo}
-                            alt="Job Portal Logo"
-                            style={{ height: '40px' }} // Adjust the height to fit your design
-                        />
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            <Nav.Link as={Link} to="/">Job Search</Nav.Link>
-                            <Nav.Link as={Link} to="/about">About Us</Nav.Link>
-                            <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-                            <NavDropdown title="Job Seekers" id="job-seekers-dropdown" menuVariant="dark">
-                                <NavDropdown.Item as={Link} to="/login">Log In</NavDropdown.Item>
-                                <NavDropdown.Item as={Link} to="/sign-up">Sign Up</NavDropdown.Item>
-                            </NavDropdown>
-                            <NavDropdown title="Employers" id="employers-dropdown" menuVariant="dark">
-                                <NavDropdown.Item as={Link} to="/login-Employer">Log In</NavDropdown.Item>
-                                <NavDropdown.Item as={Link} to="/sign-up-Employer">Sign Up</NavDropdown.Item>
-                            </NavDropdown>
-                            <Nav.Link as={Link} to="/user-list">
-                                <i className="fas fa-users"></i> Users
-                            </Nav.Link>
-                            <Nav.Link as={Link} to="/logout">
-                                <i className="fas fa-sign-out-alt"></i> Logout
-                            </Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </>
+        <Navbar bg="light" expand="lg" className="custom-navbar">
+            <Container>
+                {/* Logo on the left */}
+                <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
+                    <img 
+                        src={logo} 
+                        alt="Logo" 
+                        className="navbar-logo"
+                    />
+                    <span className="navbar-title">JobSearch</span>
+                </Navbar.Brand>
+
+                {/* Navbar toggle for mobile view */}
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+                {/* Links on the right */}
+                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+                    <Nav className="d-flex align-items-center">
+                        <NavDropdown title="Job Seekers" id="job-seekers-dropdown">
+                            <NavDropdown.Item as={Link} to="/login">
+                                <i className="fas fa-sign-in-alt mr-2"></i> Log In
+                            </NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/sign-up">
+                                <i className="fas fa-user-plus mr-2"></i> Sign Up
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                        <NavDropdown title="Employers" id="employers-dropdown" className="ml-lg-3">
+                            <NavDropdown.Item as={Link} to="/login-Employer">
+                                <i className="fas fa-sign-in-alt mr-2"></i> Log In
+                            </NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/employer-register">
+                                <i className="fas fa-user-plus mr-2"></i> Sign Up
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                        <Nav.Link as={Link} to="/user-list" className="ml-lg-3">
+                            <i className="fas fa-users mr-2"></i> Users
+                        </Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 };
 

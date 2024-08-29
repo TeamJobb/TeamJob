@@ -4,31 +4,31 @@ const sequelize = require('../config/database.js');
 const Job = sequelize.define('Job', {
   title: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   company: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   salaryRange: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   vacancies: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   employmentType: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   jobLocation: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   jobIndustry: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   requirements: {
     type: DataTypes.TEXT,

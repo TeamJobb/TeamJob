@@ -1,89 +1,90 @@
 import React, { useState } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './SearchSection.css'; 
-
-// Liste statique des pays pour l'exemple
-const countries = [
-  { code: 'US', name: 'United States' },
-  { code: 'CA', name: 'Canada' },
-  { code: 'FR', name: 'France' },
- 
-];
+import './SearchSection.css';
+import img1 from '../assets/img1.jpg';
+import img2 from '../assets/img2.jpg';
+import img3 from '../assets/img3.jpg';
 
 const SearchSection = ({ onSearch }) => {
-  const [formData, setFormData] = useState({
-    keyword: '',
-    location: '', 
-    distance: ''
-  });
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleSearchInputChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSearch(formData.location); 
+  const handleSearchClick = () => {
+    onSearch(searchTerm);
   };
-
-  
 
   return (
-    <div className="search-section">
-      <div className="overlay">
-        <h2>Connecting Job Seekers and Employers</h2>
-        <p> Find the perfect job , learn the right skills and and connect with opportunities to become location independent.</p>
-        <Form onSubmit={handleSubmit}>
-          <Row>
-            <Col md={4}>
-              <Form.Group controlId="formKeyword">
-                <Form.Control
-                  type="text"
-                  name="keyword"
-                  placeholder="Keyword"
-                  value={formData.keyword}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={4}>
-              <Form.Group controlId="formLocation">
-                
-                <Form.Control
-                  as="select"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                >
-                  <option value="">Select a country</option>
-                  {countries.map((country) => (
-                    <option key={country.code} value={country.code}>
-                      {country.name}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
-            </Col>
-            <Col md={2}>
-              <Form.Group controlId="formDistance">
-                <Form.Control
-                  type="text"
-                  name="distance"
-                  placeholder="Distance"
-                  value={formData.distance}
-                  onChange={handleChange}
-                />
-              </Form.Group>
-            </Col>
-            <Col md={2}>
-              <Button variant="primary" type="submit">
-                Search
-              </Button>
-            </Col>
-          </Row>
-        </Form>
+    <div className="carousel-container" style={{ position: 'relative' }}>
+      <Carousel style={{ width: '100%', height: '500px', margin: '0 auto' }}>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={img1}
+            alt="First slide"
+            style={{ height: '500px', objectFit: 'cover' }}
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={img2}
+            alt="Second slide"
+            style={{ height: '500px', objectFit: 'cover' }}
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={img3}
+            alt="Third slide"
+            style={{ height: '500px', objectFit: 'cover' }}
+          />
+        </Carousel.Item>
+      </Carousel>
+
+      <div
+        className="caption-search-container"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center', 
+        }}
+      >
+        <div className="caption" style={{ marginBottom: '20px' }}>
+          <h1 className="fw-bold text-white" style={{ fontSize: '2.5rem' }}>Find the perfect profession for you</h1>
+        </div>
+        <div className="search-bar-container" style={{ width: '80%', maxWidth: '600px' }}>
+          <Form className="d-flex search-bar-form">
+            <Form.Control
+              type="search"
+              placeholder="Search jobs..."
+              className="me-2"
+              aria-label="Search"
+              value={searchTerm}
+              onChange={handleSearchInputChange}
+              style={{ padding: '10px', fontSize: '1rem' }}
+            />
+           <Button 
+  className='BT' 
+  style={{ backgroundColor: 'rgb(53, 122, 224)', borderColor: 'black',color:'white' , padding: '10px 15px'}} 
+  onClick={handleSearchClick}
+>
+  Search
+</Button>
+
+          </Form>
+        </div>
       </div>
     </div>
   );

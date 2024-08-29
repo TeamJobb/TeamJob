@@ -1,26 +1,43 @@
-const { Message } = require('../models/messageModel.js'); // Adjust the import based on your models
+// controllers/messageController.js
+const Message = require("../models/Modelmsg.js");
 
-const sendMessage = async (req, res) => {
-  const { recipientId, content } = req.body;
+module.exports.getMessages = async (req, res, next) => {
   try {
-    // Ensure the user ID is available in req.user (assuming authentication middleware)
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
+    const { from, to } = req.body;
 
-    const message = await Message.create({
-      recipientId,
-      content,
-      senderId: req.user.id, // Use authenticated user ID
+    const Messages = await Message.findAll({
+      where: {
+        from: [from, to],
+        to: [from, to],
+      },
+      order: [['updatedAt', 'ASC']],
     });
 
-    res.status(201).json(message);
-  } catch (error) {
-    console.error('Error sending message:', error);
-    res.status(500).json({ error: error.message });
+    const projectedMessages = Messages.map((msg) => {
+      return {
+        fromSelf: msg.from === from,
+        message: msg.text,
+      };
+    });
+
+    res.json(projectedMessages);
+  } catch (ex) {
+    next(ex);
+  }
+};
+module.exports.addMessage = async (req, res, next) => {
+  try {
+    const { from, to, Message: text } = req.body; 
+    const data = await Message.create({
+      text, 
+      from,
+      to,
+    });
+
+    if (data) return res.json({ msg: "Message added successfully." });
+    else return res.json({ msg: "Failed to add message to the database" });
+  } catch (ex) {
+    next(ex);
   }
 };
 
-module.exports = {
-  sendMessage,
-};
